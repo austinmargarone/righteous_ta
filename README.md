@@ -1,1 +1,1 @@
-# righteous_ta
+# RighteousTA
