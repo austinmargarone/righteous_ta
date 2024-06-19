@@ -56,6 +56,16 @@ const CoinList: React.FC = () => {
   return (
     <div>
       <h2>Coin List</h2>
+      <div className="flex h-16 gap-4 py-4">
+        <p className="w-12">Rank</p>
+        <p className="w-12">Icon</p>
+        <p className="w-[10rem]">Name </p>
+        <p className="w-[3rem]">Symbol </p>
+        <p className="w-[5rem]">Price</p>
+        <p className="w-[6rem]">BTC Price</p>
+        <p className="w-[6rem]">Market Cap</p>
+        <p>Change</p>
+      </div>
       <ul className="ny-auto flex flex-col justify-center">
         {coinList.map((coin) => (
           <li className="my-auto flex h-16 gap-4 py-4" key={coin.uuid}>
@@ -70,9 +80,12 @@ const CoinList: React.FC = () => {
             </div>
             <div className="flex w-[10rem] gap-2">
               <p className="w-full truncate">{coin.name}</p>
-              <p>{coin.symbol}</p>
             </div>
-            <p className="w-[5rem]">${Number(coin.price).toFixed(2)}</p>
+            <p className="w-[3rem]">{coin.symbol}</p>
+            <p className="w-[5rem]">
+              <span className="pr-[.125rem]">$</span>
+              {Number(coin.price).toFixed(2)}
+            </p>
             <p className="w-[6rem]">{Number(coin.btcPrice).toFixed(8)}</p>
             <p className="w-[6rem]">{coin.marketCap} </p>
             <p>{coin.change}</p>

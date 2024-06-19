@@ -4,7 +4,7 @@ import axios from "axios";
 export async function GET() {
   const apiKey = process.env.NEXT_PUBLIC_RAPIDAPI_KEY;
   const url =
-    "https://coinranking1.p.rapidapi.com/coins?referenceCurrencyUuid=yhjMzLPhuIDl&timePeriod=24h&tiers=1%2C2&orderBy=marketCap&orderDirection=desc&limit=50&offset=0"; // Adjust the URL as needed
+    "https://coinranking1.p.rapidapi.com/coins?referenceCurrencyUuid=yhjMzLPhuIDl&timePeriod=24h&tiers=1%2C2&orderBy=marketCap&orderDirection=desc&limit=100&offset=0"; // Adjust the URL as needed
   const options = {
     method: "GET",
     url: url,
