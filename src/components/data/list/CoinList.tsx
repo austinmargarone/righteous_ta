@@ -7,7 +7,13 @@ interface Coin {
   name: string;
   uuid: string;
   price: string;
+  btcPrice: string;
   iconUrl: string;
+  marketCap: string;
+  symbol: string;
+  change: string;
+  rank: string;
+  unid: string;
 }
 
 const CoinList: React.FC = () => {
@@ -55,8 +61,15 @@ const CoinList: React.FC = () => {
       <ul>
         {coinList.map((coin) => (
           <li className="my-[1rem] flex gap-4" key={coin.uuid}>
+            <p>{coin.rank}</p>
             <Image src={coin.iconUrl} alt={coin.name} width={24} height={24} />
-            {coin.name}: ${coin.price}
+            <p>{coin.name}</p>
+            <p>{coin.symbol}</p>
+            <p>${coin.price}</p>
+            <p>{coin.btcPrice}</p>
+            <p>{coin.marketCap} </p>
+            <p>{coin.change}</p>
+            <p>{coin.unid}</p>
           </li>
         ))}
       </ul>
