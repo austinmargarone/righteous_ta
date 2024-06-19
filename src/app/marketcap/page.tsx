@@ -1,7 +1,6 @@
 import { Metadata } from "next";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
-import CoinList from "@/components/data/list/CoinList";
 import TableOne from "@/components/Tables/TableOne";
 
 export const metadata: Metadata = {

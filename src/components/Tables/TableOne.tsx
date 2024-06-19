@@ -7,7 +7,7 @@ const TableOne = () => {
         Top 100 Coins
       </h4>
 
-      <div className="flex flex-col">
+      <div className="flex flex-col overflow-x-auto">
         <CoinList />
       </div>
     </div>
