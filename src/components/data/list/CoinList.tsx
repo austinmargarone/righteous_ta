@@ -13,7 +13,6 @@ interface Coin {
   symbol: string;
   change: string;
   rank: string;
-  unid: string;
 }
 
 const CoinList: React.FC = () => {
@@ -25,7 +24,6 @@ const CoinList: React.FC = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get("/api/list");
-        console.log("API Response:", response.data.data.data); // Log the data to see the structure
         const data = response.data.data.data;
         if (Array.isArray(data.coins)) {
           setCoinList(data.coins);
@@ -58,18 +56,28 @@ const CoinList: React.FC = () => {
   return (
     <div>
       <h2>Coin List</h2>
-      <ul>
+      <ul className="ny-auto flex flex-col justify-center">
         {coinList.map((coin) => (
-          <li className="my-[1rem] flex gap-4" key={coin.uuid}>
-            <p>{coin.rank}</p>
-            <Image src={coin.iconUrl} alt={coin.name} width={24} height={24} />
-            <p>{coin.name}</p>
-            <p>{coin.symbol}</p>
+          <li
+            className="my-auto flex h-[2.5rem] gap-4 py-[1.25rem]"
+            key={coin.uuid}
+          >
+            <p className="w-[1.25rem]">{coin.rank}</p>
+            <div className="w-[1.5rem]">
+              <Image
+                src={coin.iconUrl}
+                alt={coin.name}
+                width={24}
+                height={24}
+              />
+            </div>
+            <div className=" flex w-[10rem] gap-2">
+              <p className="line-clamp-]">{coin.name} </p> <p>{coin.symbol}</p>
+            </div>
             <p>${coin.price}</p>
             <p>{coin.btcPrice}</p>
             <p>{coin.marketCap} </p>
             <p>{coin.change}</p>
-            <p>{coin.unid}</p>
           </li>
         ))}
       </ul>
