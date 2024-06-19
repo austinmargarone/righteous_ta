@@ -72,9 +72,9 @@ const CoinList: React.FC = () => {
               <p className="w-full truncate">{coin.name}</p>
               <p>{coin.symbol}</p>
             </div>
-            <p>${Number(coin.price).toFixed(2)}</p>
-            <p>{Number(coin.btcPrice).toFixed(8)}</p>
-            <p>{coin.marketCap} </p>
+            <p className="w-[5rem]">${Number(coin.price).toFixed(2)}</p>
+            <p className="w-[6rem]">{Number(coin.btcPrice).toFixed(8)}</p>
+            <p className="w-[6rem]">{coin.marketCap} </p>
             <p>{coin.change}</p>
           </li>
         ))}
