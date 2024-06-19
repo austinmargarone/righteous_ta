@@ -6,6 +6,7 @@ import ChatCard from "../Chat/ChatCard";
 import TableOne from "../Tables/TableOne";
 import CardDataStats from "../CardDataStats";
 import TVChartOne from "../Charts/TVChartOne";
+import CoinInfo from "../data/price/CoinInfo";
 
 const TraderDash: React.FC = () => {
   return (
@@ -30,6 +31,7 @@ const TraderDash: React.FC = () => {
             />
           </svg>
         </CardDataStats>
+
         <CardDataStats title="Total Profit" total="$45,2K" rate="4.35%" levelUp>
           <svg
             className="fill-primary dark:fill-white"

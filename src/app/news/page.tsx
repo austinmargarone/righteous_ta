@@ -2,8 +2,7 @@ import { Metadata } from "next";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import TableTwo from "@/components/Tables/TableTwo";
-import CryptoNews from "@/components/news/CryptoNews";
-import CoinInfo from "@/components/price/CoinInfo";
+import CryptoNews from "@/components/data/news/CryptoNews";
 
 export const metadata: Metadata = {
   title: "Next.js Calender | TailAdmin - Next.js Dashboard Template",
@@ -19,8 +18,8 @@ const News = () => {
       <div className="flex flex-col gap-10">
         <TableTwo />
       </div>
-      {/* <CryptoNews /> */}
-      <CoinInfo />
+
+      <CryptoNews />
     </DefaultLayout>
   );
 };

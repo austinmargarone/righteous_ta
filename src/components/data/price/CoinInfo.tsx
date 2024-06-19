@@ -51,7 +51,6 @@ const CoinInfoComponent: React.FC = () => {
   if (!coinData) {
     return <div>No data available</div>;
   }
-  console.log(coinData);
   return (
     <div>
       <h2>Coin Information</h2>
