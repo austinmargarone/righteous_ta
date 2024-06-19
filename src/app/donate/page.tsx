@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
+import CoinList from "@/components/data/list/CoinList";
 
 export const metadata: Metadata = {
   title: "Next.js Calender | TailAdmin - Next.js Dashboard Template",
@@ -10,7 +11,9 @@ export const metadata: Metadata = {
 const Donate = () => {
   return (
     <DefaultLayout>
-      <div className="h-full w-full"></div>
+      <div className="h-full w-full">
+        <CoinList />
+      </div>
     </DefaultLayout>
   );
 };
