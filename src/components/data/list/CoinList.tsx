@@ -187,10 +187,11 @@ const CoinList: React.FC = () => {
             {coinList.map((coin) => (
               <div
                 key={coin.uuid}
-                className="flex flex-col items-center gap-4 px-4 py-4"
+                className="flex flex-col items-center gap-4 px-4 py-4 text-center" // Adjusted text-center added here
               >
-                <p className="text-center font-bold">{coin.rank}</p>
-                <div className="h-12 w-12">
+                <p className="font-bold">{coin.rank}</p>{" "}
+                {/* Removed 'text-center' class */}
+                <div className="flex h-12 w-12 justify-center">
                   <Image
                     src={coin.iconUrl}
                     alt={coin.name}
@@ -199,19 +200,19 @@ const CoinList: React.FC = () => {
                     className="object-contain"
                   />
                 </div>
-                <p className="text-center text-sm">{coin.name}</p>
-                <p className="text-center">{coin.symbol}</p>
-                <p className="text-center">
+                <p>{coin.symbol}</p>
+                <p className="text-sm">{coin.name}</p>
+                <p>
                   <span className="pr-1">$</span>
                   {Number(coin.price).toFixed(2)}
                 </p>
-                <p className="text-center text-[#f7931a]">
+                <p className="text-[#f7931a]">
                   ₿{Number(coin.btcPrice).toFixed(8)}
                 </p>
-                <p className="text-center">
+                <p>
                   {formatNumberWithCommas(Number(coin.marketCap).toFixed(0))}
                 </p>
-                <p className="text-center">
+                <p>
                   <span
                     className={`inline-flex rounded-full px-2 text-xs font-semibold leading-5 ${
                       coin.change >= 0
