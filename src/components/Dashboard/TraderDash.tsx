@@ -65,7 +65,7 @@ const TraderDash: React.FC = () => {
           <p>Symbol: {coinData.symbol}</p>
           <p>
             Price:
-            {coinData.price}
+            {coinData.price.toString()}
           </p>
           <p>Color: {coinData.color}</p>
           <p>Description: {coinData.description}</p>
@@ -73,7 +73,14 @@ const TraderDash: React.FC = () => {
           <p>Supply: {coinData.supply.max}</p>
           <p>Website: {coinData.websiteUrl}</p>
         </div>
-        <CardDataStats title="Total views" total="$3.456K" rate="0.43%" levelUp>
+
+        <CardDataStats
+          title="Total views"
+          price={coinData.price}
+          rate="0.43%"
+          levelUp
+          total={""}
+        >
           <svg
             className="fill-primary dark:fill-white"
             width="22"
