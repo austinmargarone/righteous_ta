@@ -150,18 +150,20 @@ const CoinList: React.FC = () => {
                       {Number(coin.btcPrice).toFixed(8)}
                     </td>
                     <td className="whitespace-nowrap px-6 py-4">
-                      {coin.marketCap}
+                      {coin.marketCap.toLocaleString()}
                     </td>
                     <td className="whitespace-nowrap px-6 py-4">
-                      {coin.change > 0 ? (
-                        <span className="inline-flex rounded-full bg-green-100 px-2 text-xs font-semibold leading-5 text-green-800">
-                          +{coin.change}%
-                        </span>
-                      ) : (
-                        <span className="bg-red-100 text-red-800 inline-flex rounded-full px-2 text-xs font-semibold leading-5">
-                          {coin.change}%
-                        </span>
-                      )}
+                      <span
+                        className={`inline-flex rounded-full px-2 text-xs font-semibold leading-5 ${
+                          coin.change >= 0
+                            ? "bg-green-100 text-green-800"
+                            : "bg-[#FEE2E2] text-[#9B2C2C]"
+                        }`}
+                      >
+                        {coin.change > 0
+                          ? `+${coin.change.toFixed(2)}%`
+                          : `${coin.change.toFixed(2)}%`}
+                      </span>
                     </td>
                   </tr>
                 ))}
@@ -197,17 +199,19 @@ const CoinList: React.FC = () => {
                 <p className="text-center">
                   {Number(coin.btcPrice).toFixed(8)}
                 </p>
-                <p className="text-center">{coin.marketCap}</p>
+                <p className="text-center">{coin.marketCap.toLocaleString()}</p>
                 <p className="text-center">
-                  {coin.change > 0 ? (
-                    <span className="inline-flex rounded-full bg-green-100 text-xs font-semibold leading-5 text-green-800">
-                      +{coin.change}%
-                    </span>
-                  ) : (
-                    <span className="bg-red-100 text-red-800 inline-flex rounded-full text-xs font-semibold leading-5">
-                      {coin.change}%
-                    </span>
-                  )}
+                  <span
+                    className={`inline-flex rounded-full px-2 text-xs font-semibold leading-5 ${
+                      coin.change >= 0
+                        ? "bg-green-100 text-green-800"
+                        : "bg-[#FEE2E2] text-[#9B2C2C]"
+                    }`}
+                  >
+                    {coin.change > 0
+                      ? `+${coin.change.toFixed(2)}%`
+                      : `${coin.change.toFixed(2)}%`}
+                  </span>
                 </p>
               </div>
             ))}
