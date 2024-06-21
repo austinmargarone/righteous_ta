@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Image from "next/image";
 
@@ -11,9 +11,14 @@ interface Coin {
   iconUrl: string;
   marketCap: string;
   symbol: string;
-  change: number; // Change type from string to number
+  change: number;
   rank: string;
 }
+
+// Function to format numbers with commas
+const formatNumberWithCommas = (number: number | string) => {
+  return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+};
 
 const CoinList: React.FC = () => {
   const [coinList, setCoinList] = useState<Coin[]>([]);
@@ -29,7 +34,7 @@ const CoinList: React.FC = () => {
           setCoinList(
             data.coins.map((coin: any) => ({
               ...coin,
-              change: parseFloat(coin.change), // Convert change to number
+              change: parseFloat(coin.change),
             })),
           );
         } else {
@@ -121,7 +126,9 @@ const CoinList: React.FC = () => {
               <tbody className="divide-gray-200 divide-y bg-white">
                 {coinList.map((coin) => (
                   <tr key={coin.uuid}>
-                    <td className="whitespace-nowrap px-6 py-4">{coin.rank}</td>
+                    <td className="whitespace-nowrap px-6 py-4 font-bold">
+                      {coin.rank}
+                    </td>
                     <td className="whitespace-nowrap px-6 py-4">
                       <div className="flex items-center">
                         <div className="h-10 w-10 flex-shrink-0">
@@ -146,11 +153,13 @@ const CoinList: React.FC = () => {
                         ${Number(coin.price).toFixed(2)}
                       </span>
                     </td>
-                    <td className="whitespace-nowrap px-6 py-4">
-                      {Number(coin.btcPrice).toFixed(8)}
+                    <td className="whitespace-nowrap px-6 py-4 text-[#f7931a]">
+                      ₿{Number(coin.btcPrice).toFixed(8)}
                     </td>
                     <td className="whitespace-nowrap px-6 py-4">
-                      {coin.marketCap.toLocaleString()}
+                      {formatNumberWithCommas(
+                        Number(coin.marketCap).toFixed(0),
+                      )}
                     </td>
                     <td className="whitespace-nowrap px-6 py-4">
                       <span
@@ -180,7 +189,7 @@ const CoinList: React.FC = () => {
                 key={coin.uuid}
                 className="flex flex-col items-center gap-4 px-4 py-4"
               >
-                <p className="text-center">{coin.rank}</p>
+                <p className="text-center font-bold">{coin.rank}</p>
                 <div className="h-12 w-12">
                   <Image
                     src={coin.iconUrl}
@@ -196,10 +205,12 @@ const CoinList: React.FC = () => {
                   <span className="pr-1">$</span>
                   {Number(coin.price).toFixed(2)}
                 </p>
-                <p className="text-center">
-                  {Number(coin.btcPrice).toFixed(8)}
+                <p className="text-center text-[#f7931a]">
+                  ₿{Number(coin.btcPrice).toFixed(8)}
                 </p>
-                <p className="text-center">{coin.marketCap.toLocaleString()}</p>
+                <p className="text-center">
+                  {formatNumberWithCommas(Number(coin.marketCap).toFixed(0))}
+                </p>
                 <p className="text-center">
                   <span
                     className={`inline-flex rounded-full px-2 text-xs font-semibold leading-5 ${
