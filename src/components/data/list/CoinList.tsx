@@ -11,7 +11,7 @@ interface Coin {
   iconUrl: string;
   marketCap: string;
   symbol: string;
-  change: string;
+  change: number; // Change type from string to number
   rank: string;
 }
 
@@ -26,7 +26,12 @@ const CoinList: React.FC = () => {
         const response = await axios.get("/api/list");
         const data = response.data.data.data;
         if (Array.isArray(data.coins)) {
-          setCoinList(data.coins);
+          setCoinList(
+            data.coins.map((coin: any) => ({
+              ...coin,
+              change: parseFloat(coin.change), // Convert change to number
+            })),
+          );
         } else {
           setError("Unexpected data format");
         }
@@ -54,44 +59,161 @@ const CoinList: React.FC = () => {
   }
 
   return (
-    <div>
-      <h2>Coin List</h2>
-      <div className="flex h-16 gap-4 py-4">
-        <p className="w-12">Rank</p>
-        <p className="w-12">Icon</p>
-        <p className="w-[10rem]">Name </p>
-        <p className="w-[3rem]">Symbol </p>
-        <p className="w-[5rem]">Price</p>
-        <p className="w-[6rem]">BTC Price</p>
-        <p className="w-[7rem]">Market Cap</p>
-        <p className="w-[4rem]">Change</p>
+    <div className="overflow-x-auto">
+      <h2 className="mb-4 text-center text-xl font-bold">Coin List</h2>
+      <div className="border-gray-200 overflow-hidden border-b shadow-lg sm:rounded-lg">
+        {/* Desktop/Tablet View */}
+        <div className="hidden sm:block">
+          <div className="min-w-full overflow-x-auto">
+            <table className="divide-gray-200 min-w-full divide-y">
+              <thead className="bg-gray-50">
+                <tr>
+                  <th
+                    scope="col"
+                    className="text-gray-500 px-6 py-3 text-left text-xs font-medium uppercase tracking-wider"
+                  >
+                    Rank
+                  </th>
+                  <th
+                    scope="col"
+                    className="text-gray-500 px-6 py-3 text-left text-xs font-medium uppercase tracking-wider"
+                  >
+                    Icon
+                  </th>
+                  <th
+                    scope="col"
+                    className="text-gray-500 px-6 py-3 text-left text-xs font-medium uppercase tracking-wider"
+                  >
+                    Name
+                  </th>
+                  <th
+                    scope="col"
+                    className="text-gray-500 px-6 py-3 text-left text-xs font-medium uppercase tracking-wider"
+                  >
+                    Symbol
+                  </th>
+                  <th
+                    scope="col"
+                    className="text-gray-500 px-6 py-3 text-left text-xs font-medium uppercase tracking-wider"
+                  >
+                    Price
+                  </th>
+                  <th
+                    scope="col"
+                    className="text-gray-500 px-6 py-3 text-left text-xs font-medium uppercase tracking-wider"
+                  >
+                    BTC Price
+                  </th>
+                  <th
+                    scope="col"
+                    className="text-gray-500 px-6 py-3 text-left text-xs font-medium uppercase tracking-wider"
+                  >
+                    Market Cap
+                  </th>
+                  <th
+                    scope="col"
+                    className="text-gray-500 px-6 py-3 text-left text-xs font-medium uppercase tracking-wider"
+                  >
+                    Change
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="divide-gray-200 divide-y bg-white">
+                {coinList.map((coin) => (
+                  <tr key={coin.uuid}>
+                    <td className="whitespace-nowrap px-6 py-4">{coin.rank}</td>
+                    <td className="whitespace-nowrap px-6 py-4">
+                      <div className="flex items-center">
+                        <div className="h-10 w-10 flex-shrink-0">
+                          <Image
+                            src={coin.iconUrl}
+                            alt={coin.name}
+                            width={40}
+                            height={40}
+                            className="object-contain"
+                          />
+                        </div>
+                      </div>
+                    </td>
+                    <td className="text-gray-900 whitespace-nowrap px-6 py-4 text-sm">
+                      {coin.name}
+                    </td>
+                    <td className="whitespace-nowrap px-6 py-4">
+                      {coin.symbol}
+                    </td>
+                    <td className="whitespace-nowrap px-6 py-4">
+                      <span className="inline-flex rounded-full bg-green-100 px-2 text-xs font-semibold leading-5 text-green-800">
+                        ${Number(coin.price).toFixed(2)}
+                      </span>
+                    </td>
+                    <td className="whitespace-nowrap px-6 py-4">
+                      {Number(coin.btcPrice).toFixed(8)}
+                    </td>
+                    <td className="whitespace-nowrap px-6 py-4">
+                      {coin.marketCap}
+                    </td>
+                    <td className="whitespace-nowrap px-6 py-4">
+                      {coin.change > 0 ? (
+                        <span className="inline-flex rounded-full bg-green-100 px-2 text-xs font-semibold leading-5 text-green-800">
+                          +{coin.change}%
+                        </span>
+                      ) : (
+                        <span className="bg-red-100 text-red-800 inline-flex rounded-full px-2 text-xs font-semibold leading-5">
+                          {coin.change}%
+                        </span>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        {/* Mobile View */}
+        <div className="sm:hidden">
+          <div className="divide-gray-200 divide-y">
+            {coinList.map((coin) => (
+              <div
+                key={coin.uuid}
+                className="flex flex-col items-center gap-4 px-4 py-4"
+              >
+                <p className="text-center">{coin.rank}</p>
+                <div className="h-12 w-12">
+                  <Image
+                    src={coin.iconUrl}
+                    alt={coin.name}
+                    width={40}
+                    height={40}
+                    className="object-contain"
+                  />
+                </div>
+                <p className="text-center text-sm">{coin.name}</p>
+                <p className="text-center">{coin.symbol}</p>
+                <p className="text-center">
+                  <span className="pr-1">$</span>
+                  {Number(coin.price).toFixed(2)}
+                </p>
+                <p className="text-center">
+                  {Number(coin.btcPrice).toFixed(8)}
+                </p>
+                <p className="text-center">{coin.marketCap}</p>
+                <p className="text-center">
+                  {coin.change > 0 ? (
+                    <span className="inline-flex rounded-full bg-green-100 text-xs font-semibold leading-5 text-green-800">
+                      +{coin.change}%
+                    </span>
+                  ) : (
+                    <span className="bg-red-100 text-red-800 inline-flex rounded-full text-xs font-semibold leading-5">
+                      {coin.change}%
+                    </span>
+                  )}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
-      <ul className="ny-auto flex flex-col justify-center">
-        {coinList.map((coin) => (
-          <li className="my-auto flex h-16 gap-4 py-4" key={coin.uuid}>
-            <p className="w-12">{coin.rank}</p>
-            <div className="h-12 w-12">
-              <Image
-                src={coin.iconUrl}
-                alt={coin.name}
-                width={24}
-                height={24}
-              />
-            </div>
-            <div className="flex w-[10rem] gap-2">
-              <p className="w-full truncate">{coin.name}</p>
-            </div>
-            <p className="w-[3rem]">{coin.symbol}</p>
-            <p className="w-[5rem]">
-              <span className="pr-[.125rem]">$</span>
-              {Number(coin.price).toFixed(2)}
-            </p>
-            <p className="w-[6rem]">{Number(coin.btcPrice).toFixed(8)}</p>
-            <p className="w-[7rem]">{coin.marketCap} </p>
-            <p className="w-[4rem]">{coin.change}</p>
-          </li>
-        ))}
-      </ul>
     </div>
   );
 };
