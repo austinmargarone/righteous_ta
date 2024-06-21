@@ -3,10 +3,9 @@ import React from "react";
 import ChartThree from "../Charts/ChartThree";
 import ChartTwo from "../Charts/ChartTwo";
 import ChatCard from "../Chat/ChatCard";
-import TableOne from "../Tables/TableOne";
 import CardDataStats from "../CardDataStats";
 import TVChartOne from "../Charts/TVChartOne";
-import CoinInfo from "../data/price/CoinInfo";
+import CoinList10 from "../data/list/CoinList10";
 
 const TraderDash: React.FC = () => {
   return (
@@ -105,7 +104,7 @@ const TraderDash: React.FC = () => {
         <ChartThree />
         {/* <MapOne /> */}
         <div className="col-span-12 xl:col-span-8">
-          <TableOne />
+          <CoinList10 />
         </div>
         <ChatCard />
       </div>

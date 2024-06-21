@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
-import TableOne from "@/components/Tables/TableOne";
+import CoinList100 from "@/components/data/list/CoinList100";
 
 export const metadata: Metadata = {
   title: "Next.js Calender | TailAdmin - Next.js Dashboard Template",
@@ -15,7 +15,7 @@ const MarketCap = () => {
       <Breadcrumb pageName="Market Cap" />
 
       <div className="flex flex-col gap-10">
-        <TableOne />
+        <CoinList100 />
       </div>
     </DefaultLayout>
   );

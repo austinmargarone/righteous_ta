@@ -15,12 +15,15 @@ interface Coin {
   rank: string;
 }
 
-// Function to format numbers with commas
+interface CoinListProps {
+  maxCoinsToShow: number;
+}
+
 const formatNumberWithCommas = (number: number | string) => {
   return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 };
 
-const CoinList: React.FC = () => {
+const CoinList: React.FC<CoinListProps> = ({ maxCoinsToShow }) => {
   const [coinList, setCoinList] = useState<Coin[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -124,7 +127,7 @@ const CoinList: React.FC = () => {
                 </tr>
               </thead>
               <tbody className="divide-gray-200 divide-y bg-white">
-                {coinList.map((coin) => (
+                {coinList.slice(0, maxCoinsToShow).map((coin) => (
                   <tr key={coin.uuid}>
                     <td className="whitespace-nowrap px-6 py-4 font-bold">
                       {coin.rank}
@@ -184,13 +187,12 @@ const CoinList: React.FC = () => {
         {/* Mobile View */}
         <div className="sm:hidden">
           <div className="divide-gray-200 divide-y">
-            {coinList.map((coin) => (
+            {coinList.slice(0, maxCoinsToShow).map((coin) => (
               <div
                 key={coin.uuid}
-                className="flex flex-col items-center gap-4 px-4 py-4 text-center" // Adjusted text-center added here
+                className="flex flex-col items-center gap-4 px-4 py-4 text-center"
               >
                 <p className="font-bold">{coin.rank}</p>{" "}
-                {/* Removed 'text-center' class */}
                 <div className="flex h-12 w-12 justify-center">
                   <Image
                     src={coin.iconUrl}
