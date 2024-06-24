@@ -59,7 +59,7 @@ const TraderDash: React.FC = () => {
   return (
     <>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
-        <div>
+        {/* <div>
           <h2>Coin Information</h2>
           <p>Name: {coinData.name}</p>
           <p>Symbol: {coinData.symbol}</p>
@@ -72,7 +72,7 @@ const TraderDash: React.FC = () => {
           <p>Marketcap: {coinData.marketCap}</p>
           <p>Supply: {coinData.supply.max}</p>
           <p>Website: {coinData.websiteUrl}</p>
-        </div>
+        </div> */}
 
         <CardDataStats
           title="Total views"
