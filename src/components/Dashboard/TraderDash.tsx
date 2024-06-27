@@ -12,15 +12,20 @@ interface CoinData {
   name: string;
   symbol: string;
   price: number;
+  btcPrice: string;
   color: string;
   description: string;
-  marketCap: number;
+  marketCap: string;
   supply: {
     max: number;
     circulating: number;
   };
   websiteUrl: string;
 }
+
+const formatNumberWithCommas = (number: number | string) => {
+  return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+};
 
 const TraderDash: React.FC = () => {
   const [coinData, setCoinData] = useState<CoinData | null>(null);
@@ -59,27 +64,11 @@ const TraderDash: React.FC = () => {
   return (
     <>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
-        {/* <div>
-          <h2>Coin Information</h2>
-          <p>Name: {coinData.name}</p>
-          <p>Symbol: {coinData.symbol}</p>
-          <p>
-            Price:
-            {coinData.price.toString()}
-          </p>
-          <p>Color: {coinData.color}</p>
-          <p>Description: {coinData.description}</p>
-          <p>Marketcap: {coinData.marketCap}</p>
-          <p>Supply: {coinData.supply.max}</p>
-          <p>Website: {coinData.websiteUrl}</p>
-        </div> */}
-
         <CardDataStats
-          title="Total views"
-          price={coinData.price}
+          title="USD Price"
+          total={Number(coinData.price).toFixed(2)}
           rate="0.43%"
           levelUp
-          total={""}
         >
           <svg
             className="fill-primary dark:fill-white"
@@ -98,9 +87,20 @@ const TraderDash: React.FC = () => {
               fill=""
             />
           </svg>
+          {/* <Image
+            src={coinData.symbol}
+            alt={"Coin Symbol"}
+            width={25}
+            height={25}
+          /> */}
         </CardDataStats>
 
-        <CardDataStats title="Total Profit" total="$45,2K" rate="4.35%" levelUp>
+        <CardDataStats
+          title="BTC Price"
+          total={Number(coinData.btcPrice).toFixed(8)}
+          rate="4.35%"
+          levelUp
+        >
           <svg
             className="fill-primary dark:fill-white"
             width="20"
@@ -123,7 +123,12 @@ const TraderDash: React.FC = () => {
             />
           </svg>
         </CardDataStats>
-        <CardDataStats title="Total Product" total="2.450" rate="2.59%" levelUp>
+        <CardDataStats
+          title="Market Cap"
+          total={formatNumberWithCommas(Number(coinData.marketCap).toFixed(0))}
+          rate="2.59%"
+          levelUp
+        >
           <svg
             className="fill-primary dark:fill-white"
             width="22"
@@ -142,7 +147,12 @@ const TraderDash: React.FC = () => {
             />
           </svg>
         </CardDataStats>
-        <CardDataStats title="Total Users" total="3.456" rate="0.95%" levelDown>
+        <CardDataStats
+          title="Total Supply"
+          total={formatNumberWithCommas(coinData.supply.max)}
+          rate="0.95%"
+          levelDown
+        >
           <svg
             className="fill-primary dark:fill-white"
             width="22"
