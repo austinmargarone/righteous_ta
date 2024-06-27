@@ -192,7 +192,7 @@ const CoinList: React.FC<CoinListProps> = ({ maxCoinsToShow }) => {
                 key={coin.uuid}
                 className="flex flex-col items-center gap-4 px-4 py-4 text-center"
               >
-                <p className="font-bold">{coin.rank}</p>{" "}
+                <p className="font-bold">{coin.rank}</p>
                 <div className="flex h-12 w-12 justify-center">
                   <Image
                     src={coin.iconUrl}

@@ -23,6 +23,7 @@ interface CoinData {
   };
   websiteUrl: string;
   iconUrl: string;
+  change: number;
 }
 
 const formatNumberWithCommas = (number: number | string) => {
@@ -63,14 +64,14 @@ const TraderDash: React.FC = () => {
   if (!coinData) {
     return <div>No data available</div>;
   }
+
   return (
     <>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
         <CardDataStats
           title="USD Price"
-          total={Number(coinData.price).toFixed(2)}
-          rate="0.43%"
-          levelUp
+          total={`$${Number(coinData.price).toFixed(2)}`}
+          rate={coinData.change.toString()}
         >
           <Image
             src={coinData.iconUrl}
@@ -82,22 +83,20 @@ const TraderDash: React.FC = () => {
 
         <CardDataStats
           title="BTC Price"
-          total={Number(coinData.btcPrice).toFixed(8)}
-          rate="4.35%"
-          levelUp
+          total={`₿${Number(coinData.btcPrice).toFixed(8)}`}
+          rate={""}
         >
           <Image
             src={coinData.iconUrl}
             alt={coinData.name}
             width={30}
             height={30}
-          />{" "}
+          />
         </CardDataStats>
         <CardDataStats
           title="Market Cap"
-          total={formatNumberWithCommas(Number(coinData.marketCap).toFixed(0))}
-          rate="2.59%"
-          levelUp
+          total={`$${formatNumberWithCommas(Number(coinData.marketCap).toFixed(0))}`}
+          rate={""}
         >
           <Image
             src={coinData.iconUrl}
@@ -109,8 +108,7 @@ const TraderDash: React.FC = () => {
         <CardDataStats
           title="Total Supply"
           total={formatNumberWithCommas(coinData.supply.max)}
-          rate="0.95%"
-          levelDown
+          rate={""}
         >
           <Image
             src={coinData.iconUrl}
