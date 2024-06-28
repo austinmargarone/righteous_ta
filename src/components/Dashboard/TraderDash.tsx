@@ -134,11 +134,12 @@ const TraderDash: React.FC = () => {
           rank={coinData.rank}
           allTimeHigh={coinData.allTimeHigh}
           key={coinData.id}
-          websiteUrl={coinData.websiteUrl}
+          websiteUrl=""
         />
       </div>
       <div className="mt-4 md:mt-6 2xl:mt-7.5"></div>
       <CoinList10 />
+      <br />
     </>
   );
 };

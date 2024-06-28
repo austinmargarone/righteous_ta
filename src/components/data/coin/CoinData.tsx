@@ -9,12 +9,26 @@ interface CoinDataProps {
   numberOfMarkets: number;
   numberOfExchanges: number;
   rank: number;
-  allTimeHigh: { price: number; timestamp: number };
+  allTimeHigh: { price: number | string; timestamp: number };
 }
 
 const CoinData = (coinData: CoinDataProps) => {
   // Log the coinData object to debug
   console.log(coinData);
+
+  // Format numbers with commas
+  const formatNumber = (number: number) => {
+    return new Intl.NumberFormat().format(number);
+  };
+
+  // Format price to 4 decimal places and add commas
+  const formatPrice = (price: number | string) => {
+    const numPrice = typeof price === "string" ? parseFloat(price) : price;
+    return new Intl.NumberFormat("en-US", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }).format(numPrice);
+  };
 
   return (
     <div className="col-span-12 h-[25rem] rounded-sm border border-stroke bg-white p-6 shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-4">
@@ -31,13 +45,16 @@ const CoinData = (coinData: CoinDataProps) => {
               <strong>Description:</strong> {coinData.description}
             </p>
             <p className="text-gray-700 dark:text-gray-300 text-base">
-              <strong>Number of Markets:</strong> {coinData.numberOfMarkets}
+              <strong>Number of Markets:</strong>{" "}
+              {formatNumber(coinData.numberOfMarkets)}
             </p>
             <p className="text-gray-700 dark:text-gray-300 text-base">
-              <strong>Number of Exchanges:</strong> {coinData.numberOfExchanges}
+              <strong>Number of Exchanges:</strong>{" "}
+              {formatNumber(coinData.numberOfExchanges)}
             </p>
             <p className="text-gray-700 dark:text-gray-300 text-base">
-              <strong>All Time High:</strong> ${coinData.allTimeHigh.price}
+              <strong>All Time High:</strong> $
+              {formatPrice(coinData.allTimeHigh.price)}
             </p>
           </div>
         </div>
