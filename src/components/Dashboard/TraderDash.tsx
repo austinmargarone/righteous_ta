@@ -123,11 +123,9 @@ const TraderDash: React.FC = () => {
         <TVChartOne />
         <ChartTwo />
         {/* <MapOne /> */}
-        <ChatCard />
-        <div className="col-span-12 xl:col-span-8">
-          <CoinList10 />
-        </div>
       </div>
+      <div className="mt-4 md:mt-6 2xl:mt-7.5"></div>
+      <CoinList10 />
     </>
   );
 };
