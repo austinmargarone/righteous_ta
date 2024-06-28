@@ -1,12 +1,12 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import ChartTwo from "../Charts/ChartTwo";
-import ChatCard from "../Chat/ChatCard";
 import CardDataStats from "../CardDataStats";
 import TVChartOne from "../Charts/TVChartOne";
 import CoinList10 from "../data/list/CoinList10";
 import axios from "axios";
 import Image from "next/image";
+import CoinData from "../data/coin/CoinData";
 
 interface CoinData {
   id: string;
@@ -24,6 +24,10 @@ interface CoinData {
   websiteUrl: string;
   iconUrl: string;
   change: number;
+  numberOfMarkets: number;
+  numberOfExchanges: number;
+  rank: number;
+  allTimeHigh: { price: number; timestamp: number };
 }
 
 const formatNumberWithCommas = (number: number | string) => {
@@ -121,8 +125,17 @@ const TraderDash: React.FC = () => {
 
       <div className="mt-4 grid grid-cols-12 gap-4 md:mt-6 md:gap-6 2xl:mt-7.5 2xl:gap-7.5">
         <TVChartOne />
-        <ChartTwo />
-        {/* <MapOne /> */}
+        <CoinData
+          id={coinData.id}
+          name={coinData.name}
+          description={coinData.description}
+          numberOfMarkets={coinData.numberOfMarkets}
+          numberOfExchanges={coinData.numberOfExchanges}
+          rank={coinData.rank}
+          allTimeHigh={coinData.allTimeHigh}
+          key={coinData.id}
+          websiteUrl={coinData.websiteUrl}
+        />
       </div>
       <div className="mt-4 md:mt-6 2xl:mt-7.5"></div>
       <CoinList10 />
