@@ -17,37 +17,39 @@ const CoinData = (coinData: CoinDataProps) => {
   console.log(coinData);
 
   return (
-    <div className="col-span-12 h-[25rem] rounded-sm border border-stroke bg-white p-7.5 shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-4">
+    <div className="col-span-12 h-[25rem] rounded-sm border border-stroke bg-white p-6 shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-4">
       <div className="flex h-full flex-col justify-between gap-4">
         <div>
-          <h4 className="text-xl font-semibold text-black">{coinData.name}</h4>
-          <div className="mt-[1.5rem] flex flex-col gap-[1.5rem]">
-            <p>
-              Rank: <span> {coinData.rank}</span>
+          <h4 className="mb-4 text-2xl font-semibold text-black dark:text-white">
+            {coinData.name}
+          </h4>
+          <div className="flex flex-col gap-4">
+            <p className="text-gray-700 dark:text-gray-300 text-base">
+              <strong>Rank:</strong> {coinData.rank}
             </p>
-            <p>
-              Description: <span> {coinData.description}</span>
+            <p className="text-gray-700 dark:text-gray-300 text-base">
+              <strong>Description:</strong> {coinData.description}
             </p>
-            <p>
-              Number of Markets: <span> {coinData.numberOfMarkets}</span>
+            <p className="text-gray-700 dark:text-gray-300 text-base">
+              <strong>Number of Markets:</strong> {coinData.numberOfMarkets}
             </p>
-            <p>
-              Number of Exchanges: <span> {coinData.numberOfExchanges}</span>
+            <p className="text-gray-700 dark:text-gray-300 text-base">
+              <strong>Number of Exchanges:</strong> {coinData.numberOfExchanges}
             </p>
-            <p>
-              All Time High: <span> {coinData.allTimeHigh.price}</span>
+            <p className="text-gray-700 dark:text-gray-300 text-base">
+              <strong>All Time High:</strong> ${coinData.allTimeHigh.price}
             </p>
           </div>
-          {coinData.websiteUrl && (
-            <div className="mt-[1.5rem]">
-              <Link href={coinData.websiteUrl} target="_blank">
-                <button className="rounded-md bg-blue-600 px-3 py-1 text-white">
-                  Visit Website
-                </button>
-              </Link>
-            </div>
-          )}
         </div>
+        {coinData.websiteUrl && (
+          <div className="mt-4">
+            <Link href={coinData.websiteUrl} target="_blank">
+              <button className="w-full rounded-md bg-blue-600 px-4 py-2 text-white transition-colors duration-200 hover:bg-blue-700">
+                Visit Website
+              </button>
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   );
