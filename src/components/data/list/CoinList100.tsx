@@ -1,7 +1,7 @@
 import React from "react";
 import CoinList from "./CoinList";
 
-const TableOne = () => {
+const CoinList100 = () => {
   const maxCoinsToShow = 100;
 
   return (
@@ -17,4 +17,4 @@ const TableOne = () => {
   );
 };
 
-export default TableOne;
+export default CoinList100;
