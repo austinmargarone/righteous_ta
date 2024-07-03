@@ -2,7 +2,7 @@
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-![Preview Image](devpreview.png)
+![Preview Image](devpreview.jpg)
 
 ## This application is still being built | Please stay tuned
 
@@ -45,8 +45,8 @@ To run this project locally, follow these steps:
 1. **Clone the repository**:
 
    ```bash
-   git clone  git@github.com:austinmargarone/todo-list.git
-   cd todo-list
+   git clone  git@github.com:austinmargarone/righteous_ta.git
+   cd righteous_ta
    ```
 
 2. **Install & Launch**:
