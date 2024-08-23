@@ -11,6 +11,7 @@ export const metadata: Metadata = {
 };
 
 const News = () => {
+  console.log("test");
   return (
     <DefaultLayout>
       <Breadcrumb pageName="Tables" />
