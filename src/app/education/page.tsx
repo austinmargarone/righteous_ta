@@ -5,9 +5,9 @@ import EducationClient from "@/components/Education/EducationClient";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 
 export const metadata: Metadata = {
-  title: "Next.js Calender | TailAdmin - Next.js Dashboard Template",
+  title: "RighteousTA | Education",
   description:
-    "This is Next.js Calender page for TailAdmin  Tailwind CSS Admin Dashboard Template",
+    "Learn about cryptocurency and technical analysis with RighteousTA's educational content.",
 };
 
 export const revalidate = 60;
