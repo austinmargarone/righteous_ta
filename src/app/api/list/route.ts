@@ -16,7 +16,6 @@ export async function GET() {
 
   try {
     const response = await axios.request(options);
-    console.log(response.data); // Log the data to see the structure
     const data = response.data;
     return NextResponse.json({ data });
   } catch (error) {

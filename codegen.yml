@@ -1,0 +1,8 @@
+overwrite: true
+schema: "https://api-eu-central-1.hygraph.com/v2/da2043b7c7864a18ad907850c82f000b/master"
+documents: "lib/**/*.ts"
+generates:
+  lib/generated/graphql.ts:
+    plugins:
+      - "typescript"
+      - "typescript-operations"
