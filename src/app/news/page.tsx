@@ -1,7 +1,6 @@
 import { Metadata } from "next";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
-import TableTwo from "@/components/Tables/TableTwo";
 import CryptoNews from "@/components/data/news/CryptoNews";
 
 export const metadata: Metadata = {
@@ -11,15 +10,9 @@ export const metadata: Metadata = {
 };
 
 const News = () => {
-  console.log("test");
   return (
     <DefaultLayout>
-      <Breadcrumb pageName="Tables" />
-
-      <div className="flex flex-col gap-10">
-        <TableTwo />
-      </div>
-
+      <Breadcrumb pageName="Crypto News" />
       <CryptoNews />
     </DefaultLayout>
   );

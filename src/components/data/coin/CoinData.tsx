@@ -13,9 +13,6 @@ interface CoinDataProps {
 }
 
 const CoinData = (coinData: CoinDataProps) => {
-  // Log the coinData object to debug
-  console.log(coinData);
-
   // Format numbers with commas
   const formatNumber = (number: number) => {
     return new Intl.NumberFormat().format(number);
