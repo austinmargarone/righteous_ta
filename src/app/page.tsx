@@ -1,4 +1,4 @@
-import TraderDash from "@/components/Dashboard/TraderDash";
+import TraderDash2 from "@/components/Dashboard/TraderDash2";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
 import { Metadata } from "next";
 
@@ -11,7 +11,7 @@ export default function Home() {
   return (
     <>
       <DefaultLayout>
-        <TraderDash />
+        <TraderDash2 />
       </DefaultLayout>
     </>
   );
