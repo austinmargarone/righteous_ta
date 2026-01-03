@@ -18,9 +18,11 @@ export async function GET(request: NextRequest) {
       ADAUSDT: "ADA",
       XRPUSDT: "XRP",
       DOGEUSDT: "DOGE",
-      AVAXUSDT: "AVAX",
       DOTUSDT: "DOT",
       MATICUSDT: "MATIC",
+      LTCUSDT: "LTC",
+      LINKUSDT: "LINK",
+      XMLUSDT: "XLM",
     };
 
     // Map intervals to Cryptocompare endpoints

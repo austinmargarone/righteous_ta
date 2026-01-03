@@ -26,6 +26,12 @@ export default function PriceHeader({ symbol }: PriceHeaderProps) {
           SOLUSDT: "SOL",
           ADAUSDT: "ADA",
           XRPUSDT: "XRP",
+          DOGEUSDT: "DOGE",
+          DOTUSDT: "DOT",
+          MATICUSDT: "MATIC",
+          LTCUSDT: "LTC",
+          LINKUSDT: "LINK",
+          XMLUSDT: "XLM",
         };
 
         const fromSymbol = symbolMap[symbol] || "BTC";

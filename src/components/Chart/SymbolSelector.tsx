@@ -12,6 +12,12 @@ const POPULAR_SYMBOLS = [
   { display: "SOL/USDT", value: "SOLUSDT" },
   { display: "ADA/USDT", value: "ADAUSDT" },
   { display: "XRP/USDT", value: "XRPUSDT" },
+  { display: "DOGE/USDT", value: "DOGEUSDT" },
+  { display: "LTC/USDT", value: "LTCUSDT" },
+  { display: "LINK/USDT", value: "LINKUSDT" },
+  { display: "DOT/USDT", value: "DOTUSDT" },
+  { display: "MATIC/USDT", value: "MATICUSDT" },
+  { display: "XLM/USDT", value: "XMLUSDT" },
 ];
 
 export default function SymbolSelector({
