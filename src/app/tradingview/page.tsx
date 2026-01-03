@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: "Find you currency pair and start trading with RighteousTA.",
 };
 
-const CalendarPage = () => {
+const TradingView = () => {
   return (
     <DefaultLayout>
       <div className="h-full w-full">
@@ -17,4 +17,4 @@ const CalendarPage = () => {
   );
 };
 
-export default CalendarPage;
+export default TradingView;
