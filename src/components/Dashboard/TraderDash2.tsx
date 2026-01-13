@@ -6,6 +6,7 @@ import PriceHeader from "@/components/Chart/PriceHeader";
 import TimeframeSelector from "@/components/Chart/TimeframeSelector";
 import TokenomicsPanel from "../Chart/TokenomicsPanel";
 import OrderBook from "../Chart/OrderBook";
+import MarketHeatmap from "../Chart/MarketHeatmap";
 
 export default function TraderDash2() {
   const [selectedSymbol, setSelectedSymbol] = useState("BTCUSDT");
@@ -65,6 +66,9 @@ export default function TraderDash2() {
 
         <div className="lg:col-span-1">
           <TokenomicsPanel symbol={selectedSymbol} />
+        </div>
+        <div className="lg:col-span-2">
+          <MarketHeatmap onSymbolClick={setSelectedSymbol} />
         </div>
       </div>
     </div>
