@@ -94,7 +94,7 @@ export default function CandlestickChart({
     ema26: false,
     bollingerBands: false,
     volume: true,
-    rsi: false,
+    rsi: true,
     macd: false,
   });
 

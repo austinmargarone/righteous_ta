@@ -25,7 +25,7 @@ export default function OrderBook({ symbol = "BTCUSDT" }: OrderBookProps) {
   const [bids, setBids] = useState<OrderBookEntry[]>([]);
   const [recentTrades, setRecentTrades] = useState<Trade[]>([]);
   const [spread, setSpread] = useState({ absolute: 0, percentage: 0 });
-  const [depthLimit, setDepthLimit] = useState(7);
+  const [depthLimit, setDepthLimit] = useState(9);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<"book" | "trades" | "depth">(
@@ -220,7 +220,7 @@ export default function OrderBook({ symbol = "BTCUSDT" }: OrderBookProps) {
             onChange={(e) => setDepthLimit(Number(e.target.value))}
             className="rounded border border-stroke bg-transparent px-2 py-1 text-xs dark:border-strokedark"
           >
-            <option value={7}>7</option>
+            <option value={9}>9</option>
             <option value={12}>12</option>
             <option value={25}>25</option>
           </select>

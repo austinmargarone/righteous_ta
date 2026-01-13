@@ -10,7 +10,7 @@ import MarketHeatmap from "../Chart/MarketHeatmap";
 
 export default function TraderDash2() {
   const [selectedSymbol, setSelectedSymbol] = useState("BTCUSDT");
-  const [selectedInterval, setSelectedInterval] = useState("1h");
+  const [selectedInterval, setSelectedInterval] = useState("4h");
 
   return (
     <div className="flex h-full flex-col gap-4">
