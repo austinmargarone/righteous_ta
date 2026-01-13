@@ -5,6 +5,7 @@ import CandlestickChart from "@/components/Chart/CandlestickChart";
 import PriceHeader from "@/components/Chart/PriceHeader";
 import TimeframeSelector from "@/components/Chart/TimeframeSelector";
 import TokenomicsPanel from "../Chart/TokenomicsPanel";
+import OrderBook from "../Chart/OrderBook";
 
 export default function TraderDash2() {
   const [selectedSymbol, setSelectedSymbol] = useState("BTCUSDT");
@@ -47,9 +48,9 @@ export default function TraderDash2() {
 
       {/* Main Content - Side by Side */}
       <div className="grid flex-1 grid-cols-1 gap-4 lg:grid-cols-4">
-        {/* Tokenomics Panel - Left Side */}
+        {/* Orderbook Panel - Left Side */}
         <div className="lg:col-span-1">
-          <TokenomicsPanel symbol={selectedSymbol} />
+          <OrderBook symbol={selectedSymbol} />
         </div>
 
         {/* Chart - Right Side */}
@@ -60,6 +61,10 @@ export default function TraderDash2() {
               interval={selectedInterval}
             />
           </div>
+        </div>
+
+        <div className="lg:col-span-1">
+          <TokenomicsPanel symbol={selectedSymbol} />
         </div>
       </div>
     </div>
