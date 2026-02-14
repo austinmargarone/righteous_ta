@@ -290,7 +290,7 @@ export default function CandlestickChart({
     const colors = THEMES[theme];
 
     const rsiChart = createChart(rsiContainerRef.current, {
-      width: rsiContainerRef.current.clientWidth,
+      autoSize: true,
       height: 150,
       layout: {
         background: { type: ColorType.Solid, color: colors.background },
