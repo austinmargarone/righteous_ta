@@ -141,7 +141,7 @@ export default function CandlestickChart({
     const colors = THEMES[theme];
 
     const chart = createChart(chartContainerRef.current, {
-      width: chartContainerRef.current.clientWidth,
+      autoSize: true,
       height: 500,
       layout: {
         background: { type: ColorType.Solid, color: colors.background },
@@ -180,6 +180,7 @@ export default function CandlestickChart({
       rightPriceScale: {
         borderColor: "#2B2B43",
         autoScale: autoScale,
+        scaleMargins: { top: 0.15, bottom: 0.15 },
       },
     });
 
@@ -674,7 +675,7 @@ export default function CandlestickChart({
       {/* Minimalist Control Panel - Top Left */}
       <div className="absolute left-2 top-2 z-20 flex items-center gap-2">
         {/* Indicators Button */}
-        <div className="group relative">
+        <div className="group relative px-4">
           <button className="flex items-center gap-1 rounded bg-white/90 px-3 py-1.5 text-xs font-medium text-black shadow-md hover:bg-white dark:bg-boxdark/90 dark:text-white dark:hover:bg-boxdark">
             <span>📊</span>
             <span>Indicators</span>
@@ -872,11 +873,11 @@ export default function CandlestickChart({
       )}
 
       {/* Main Chart */}
-      <div ref={chartContainerRef} className="rounded-lg" />
+      <div ref={chartContainerRef} className="rounded-lg px-4" />
 
       {/* RSI Chart */}
       {indicators.rsi && (
-        <div className="mt-2">
+        <div className="mt-2 px-4">
           <div className="mb-1 px-2 text-xs font-semibold text-black dark:text-white">
             RSI (14)
           </div>
