@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
-import TradingViewWidget from "@/components/Charts/TradingViewWidget";
+import TradingViewWidget from "@/components/Chart/TradingViewWidget";
 
 export const metadata: Metadata = {
   title: "RighteousTA | TradingView Charts",
