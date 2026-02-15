@@ -1,7 +1,24 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ["cdn.coinranking.com"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "coin-images.coingecko.com",
+        port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "images.coingecko.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "cdn.coinranking.com",
+        pathname: "/**",
+      },
+    ],
   },
 };
 
