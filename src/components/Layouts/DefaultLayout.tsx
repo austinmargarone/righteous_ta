@@ -24,7 +24,7 @@ export default function DefaultLayout({
           {/* <!-- ===== Header End ===== --> */}
 
           {/* <!-- ===== Main Content Start ===== --> */}
-          <main className="flex-grow overflow-y-auto">
+          <main className="mb-4 flex-grow overflow-y-auto">
             <div className="mx-auto h-full max-w-screen-2xl p-4 md:p-6 2xl:p-10">
               {children}
             </div>

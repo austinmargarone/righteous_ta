@@ -67,7 +67,7 @@ export default function TraderDash2() {
         <div className="lg:col-span-1">
           <TokenomicsPanel symbol={selectedSymbol} />
         </div>
-        <div className="lg:col-span-2">
+        <div className="lg:col-span-3">
           <MarketHeatmap onSymbolClick={setSelectedSymbol} />
         </div>
       </div>
