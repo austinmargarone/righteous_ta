@@ -7,7 +7,9 @@
 
 **Live Demo:** [https://www.righteousta.com/](https://www.righteousta.com/)
 
-![RighteousTA Preview](public/screenshots/dashboard-preview.png)
+![RighteousTA Preview](public/screenshots/dashboard-preview0.png)
+![RighteousTA Preview](public/screenshots/dashboard-preview2.png)
+![RighteousTA Preview](public/screenshots/dashboard-preview3.png)
 
 RighteousTA is a modern cryptocurrency technical analysis platform built to help traders and analysts track markets, visualize data, and learn TA concepts in real time.
 
