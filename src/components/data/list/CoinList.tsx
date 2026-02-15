@@ -98,17 +98,13 @@ const CoinList: React.FC<CoinListProps> = ({ maxCoinsToShow }) => {
     };
 
     fetchData();
-
-    // Optional: refresh every 90 seconds (adjust as needed)
-    // const interval = setInterval(fetchData, 90000);
-    // return () => clearInterval(interval);
   }, [maxCoinsToShow]);
 
   if (loading) {
     return (
       <div className="flex items-center justify-center py-10">
-        <div className="h-12 w-12 animate-spin rounded-full border-b-2 border-t-2 border-blue-500"></div>
-        <span className="text-gray-600 dark:text-gray-300 ml-4">
+        <div className="h-12 w-12 animate-spin rounded-full border-b-2 border-t-2 border-primary"></div>
+        <span className="ml-4 text-body dark:text-bodydark">
           Loading top coins...
         </span>
       </div>
@@ -116,77 +112,85 @@ const CoinList: React.FC<CoinListProps> = ({ maxCoinsToShow }) => {
   }
 
   if (error) {
-    return <div className="text-red-600 py-10 text-center">{error}</div>;
+    return (
+      <div className="dark:text-red-400 py-10 text-center text-danger">
+        {error}
+      </div>
+    );
   }
 
   if (!coinList.length) {
-    return <div className="py-10 text-center">No data available</div>;
+    return (
+      <div className="py-10 text-center text-body dark:text-bodydark">
+        No data available
+      </div>
+    );
   }
 
   return (
-    <div className="overflow-x-auto">
+    <div className="overflow-x-auto pb-6">
       {/* Desktop / Tablet View */}
       <div className="hidden sm:block">
-        <table className="divide-gray-200 dark:divide-gray-700 min-w-full table-fixed divide-y">
-          <thead className="bg-gray-50 dark:bg-gray-800">
+        <table className="min-w-full table-fixed divide-y divide-stroke dark:divide-strokedark">
+          <thead className="bg-gray-2 dark:bg-meta-4">
             <tr>
               <th
                 scope="col"
-                className="text-gray-500 dark:text-gray-300 w-16 px-4 py-3 text-left text-xs font-medium uppercase tracking-wider"
+                className="w-16 px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-body dark:text-bodydark"
               >
                 Rank
               </th>
               <th
                 scope="col"
-                className="text-gray-500 dark:text-gray-300 w-16 px-4 py-3 text-left text-xs font-medium uppercase tracking-wider"
+                className="w-16 px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-body dark:text-bodydark"
               >
                 Icon
               </th>
               <th
                 scope="col"
-                className="text-gray-500 dark:text-gray-300 w-40 px-4 py-3 text-left text-xs font-medium uppercase tracking-wider"
+                className="w-40 px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-body dark:text-bodydark"
               >
                 Name
               </th>
               <th
                 scope="col"
-                className="text-gray-500 dark:text-gray-300 w-24 px-4 py-3 text-left text-xs font-medium uppercase tracking-wider"
+                className="w-24 px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-body dark:text-bodydark"
               >
                 Symbol
               </th>
               <th
                 scope="col"
-                className="text-gray-500 dark:text-gray-300 w-32 px-4 py-3 text-left text-xs font-medium uppercase tracking-wider"
+                className="w-32 px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-body dark:text-bodydark"
               >
                 Price
               </th>
               <th
                 scope="col"
-                className="text-gray-500 dark:text-gray-300 w-32 px-4 py-3 text-left text-xs font-medium uppercase tracking-wider"
+                className="w-32 px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-body dark:text-bodydark"
               >
                 BTC Price
               </th>
               <th
                 scope="col"
-                className="text-gray-500 dark:text-gray-300 w-40 px-4 py-3 text-left text-xs font-medium uppercase tracking-wider"
+                className="w-40 px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-body dark:text-bodydark"
               >
                 Market Cap
               </th>
               <th
                 scope="col"
-                className="text-gray-500 dark:text-gray-300 w-28 px-4 py-3 text-left text-xs font-medium uppercase tracking-wider"
+                className="w-28 px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-body dark:text-bodydark"
               >
                 24h Change
               </th>
             </tr>
           </thead>
-          <tbody className="divide-gray-200 dark:bg-gray-900 dark:divide-gray-700 divide-y bg-white">
+          <tbody className="divide-y divide-stroke bg-white dark:divide-strokedark dark:bg-boxdark">
             {coinList.map((coin) => (
               <tr
                 key={coin.uuid}
-                className="hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+                className="transition-colors hover:bg-gray-2 dark:hover:bg-meta-4"
               >
-                <td className="text-gray-900 whitespace-nowrap px-4 py-4 font-medium dark:text-white">
+                <td className="whitespace-nowrap px-4 py-4 font-medium text-black dark:text-white">
                   {coin.rank}
                 </td>
                 <td className="whitespace-nowrap px-4 py-4">
@@ -199,29 +203,29 @@ const CoinList: React.FC<CoinListProps> = ({ maxCoinsToShow }) => {
                   />
                 </td>
                 <td
-                  className="text-gray-900 dark:text-gray-200 max-w-0 truncate px-4 py-4 text-sm"
+                  className="max-w-0 truncate px-4 py-4 text-sm text-black dark:text-white"
                   title={coin.name}
                 >
                   {coin.name}
                 </td>
-                <td className="text-gray-500 dark:text-gray-400 whitespace-nowrap px-4 py-4 text-sm">
+                <td className="whitespace-nowrap px-4 py-4 text-sm text-body dark:text-bodydark">
                   {coin.symbol}
                 </td>
-                <td className="text-gray-900 dark:text-gray-200 whitespace-nowrap px-4 py-4 text-sm font-medium">
+                <td className="whitespace-nowrap px-4 py-4 text-sm font-medium text-black dark:text-white">
                   ${formatUsdPrice(coin.price)}
                 </td>
-                <td className="whitespace-nowrap px-4 py-4 text-sm font-medium text-[#f7931a] dark:text-yellow-400">
+                <td className="whitespace-nowrap px-4 py-4 text-sm font-medium text-warning dark:text-warning">
                   ₿{formatBtcPrice(coin.btcPrice)}
                 </td>
-                <td className="text-gray-900 dark:text-gray-200 whitespace-nowrap px-4 py-4 text-sm font-medium">
+                <td className="whitespace-nowrap px-4 py-4 text-sm font-medium text-black dark:text-white">
                   ${formatNumberWithCommas(Math.round(Number(coin.marketCap)))}
                 </td>
                 <td className="whitespace-nowrap px-4 py-4">
                   <span
                     className={`inline-flex rounded-full px-3 py-1 text-xs font-semibold leading-5 ${
                       coin.change >= 0
-                        ? "bg-green-100 text-green-800 dark:bg-green-800 dark:text-green-100"
-                        : "bg-red-100 text-red-900 dark:bg-red-900 dark:text-red-50 font-medium"
+                        ? "bg-success/10 text-success dark:bg-success/20 dark:text-success"
+                        : "bg-danger/10 text-danger dark:bg-danger/20 dark:text-danger"
                     }`}
                   >
                     {coin.change >= 0 ? "+" : ""}
@@ -235,13 +239,13 @@ const CoinList: React.FC<CoinListProps> = ({ maxCoinsToShow }) => {
       </div>
 
       {/* Mobile View */}
-      <div className="divide-gray-200 dark:divide-gray-700 divide-y sm:hidden">
+      <div className="divide-y divide-stroke dark:divide-strokedark sm:hidden">
         {coinList.map((coin) => (
           <div
             key={coin.uuid}
-            className="flex flex-col items-center gap-3 px-4 py-6 text-center"
+            className="flex flex-col items-center gap-3 bg-white px-4 py-6 text-center dark:bg-boxdark"
           >
-            <div className="text-gray-900 text-xl font-bold dark:text-white">
+            <div className="text-xl font-bold text-black dark:text-white">
               {coin.rank}
             </div>
             <Image
@@ -251,28 +255,30 @@ const CoinList: React.FC<CoinListProps> = ({ maxCoinsToShow }) => {
               height={64}
               className="rounded-full"
             />
-            <div className="font-semibold">{coin.symbol}</div>
+            <div className="font-semibold text-black dark:text-white">
+              {coin.symbol}
+            </div>
             <div
-              className="text-gray-600 dark:text-gray-400 max-w-[80vw] truncate text-sm"
+              className="max-w-[80vw] truncate text-sm text-body dark:text-bodydark"
               title={coin.name}
             >
               {coin.name}
             </div>
-            <div className="text-gray-900 dark:text-gray-200 text-lg font-medium">
+            <div className="text-lg font-medium text-black dark:text-white">
               ${formatUsdPrice(coin.price)}
             </div>
-            <div className="text-[#f7931a] dark:text-yellow-400">
+            <div className="text-warning dark:text-warning">
               ₿{formatBtcPrice(coin.btcPrice)}
             </div>
-            <div className="text-gray-800 dark:text-gray-200 font-medium">
+            <div className="font-medium text-black dark:text-white">
               ${formatNumberWithCommas(Math.round(Number(coin.marketCap)))}
             </div>
             <div>
               <span
                 className={`inline-flex rounded-full px-4 py-1 text-sm font-semibold ${
                   coin.change >= 0
-                    ? "bg-green-100 text-green-800 dark:bg-green-800 dark:text-green-100"
-                    : "bg-red-100 text-red-800 dark:bg-red-800 dark:text-red-100"
+                    ? "bg-success/10 text-success dark:bg-success/20 dark:text-success"
+                    : "bg-danger/10 text-danger dark:bg-danger/20 dark:text-danger"
                 }`}
               >
                 {coin.change >= 0 ? "+" : ""}
