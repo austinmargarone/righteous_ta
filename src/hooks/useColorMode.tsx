@@ -4,34 +4,23 @@ import { useEffect } from "react";
 import useLocalStorage from "./useLocalStorage";
 
 const useColorMode = () => {
-  const [colorMode, setColorMode] = useLocalStorage<"light" | "dark" | null>(
+  const [colorMode, setColorMode] = useLocalStorage<"light" | "dark">(
     "color-theme",
-    null,
+    "dark", // Default to dark
   );
 
   useEffect(() => {
-    // On first load: if no saved preference, use system preference
-    if (colorMode === null) {
-      const prefersDark = window.matchMedia(
-        "(prefers-color-scheme: dark)",
-      ).matches;
-      const initialMode = prefersDark ? "dark" : "light";
-      setColorMode(initialMode);
-      return;
-    }
-
-    // Apply saved preference
     const className = "dark";
-    const bodyClass = window.document.body.classList;
+    const htmlClass = window.document.documentElement.classList; // Change from body to html
 
     if (colorMode === "dark") {
-      bodyClass.add(className);
+      htmlClass.add(className);
     } else {
-      bodyClass.remove(className);
+      htmlClass.remove(className);
     }
-  }, [colorMode, setColorMode]);
+  }, [colorMode]);
 
-  return [colorMode ?? "dark", setColorMode] as const; // fallback to dark if null
+  return [colorMode, setColorMode] as const;
 };
 
 export default useColorMode;
