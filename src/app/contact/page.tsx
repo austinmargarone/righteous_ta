@@ -3,9 +3,31 @@ import DefaultLayout from "@/components/Layouts/DefaultLayout";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 
 export const metadata: Metadata = {
-  title: "Next.js Calender | TailAdmin - Next.js Dashboard Template",
+  title: "Contact | RighteousTA",
   description:
-    "This is Next.js Calender page for TailAdmin  Tailwind CSS Admin Dashboard Template",
+    "Get in touch with the RighteousTA team for inquiries, support, or feedback regarding our cryptocurrency technical analysis platform.",
+  openGraph: {
+    title: "Contact RighteousTA",
+    description:
+      "Get in touch with the RighteousTA team for inquiries, support, or feedback regarding our cryptocurrency technical analysis platform.",
+    url: "https://www.righteousta.com/contact",
+    images: [
+      {
+        url: "/images/meta/meta.jpeg",
+        width: 1200,
+        height: 630,
+        alt: "RighteousTA Contact Page – Crypto Technical Analysis Platform",
+      },
+    ],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Contact | RighteousTA",
+    description:
+      "Get in touch with the RighteousTA team for inquiries, support, or feedback regarding our cryptocurrency technical analysis platform.",
+    images: ["/images/meta/meta.jpeg"],
+  },
 };
 
 const Contact = () => {

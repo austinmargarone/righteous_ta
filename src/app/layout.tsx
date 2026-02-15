@@ -1,27 +1,51 @@
-"use client";
+// app/layout.tsx     ← NO "use client" here
+import type { Metadata } from "next";
 import "@/css/satoshi.css";
 import "@/css/style.css";
-import React, { useEffect, useState } from "react";
-import Loader from "@/components/common/Loader";
+import ClientWrapper from "@/components/ClientWrapper";
+
+export const metadata: Metadata = {
+  title: {
+    default: "RighteousTA – Crypto Technical Analysis Platform",
+    template: "%s | RighteousTA",
+  },
+  description:
+    "Advanced cryptocurrency technical analysis platform. Real-time charts, indicators, market cap rankings, price trends, alerts, and trading insights for Bitcoin, Ethereum, altcoins and more.",
+  keywords: [
+    "crypto technical analysis",
+    "cryptocurrency charts",
+    "bitcoin TA",
+    "ethereum analysis",
+    "crypto trading tools",
+    "altcoin technical analysis",
+    "RighteousTA",
+  ],
+  openGraph: {
+    title: "RighteousTA – Crypto TA Platform",
+    description:
+      "Professional tools for crypto technical analysis and market insights.",
+    url: "https://www.righteousta.com",
+    images: ["/public/RighteousTA.png"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "RighteousTA – Crypto Technical Analysis",
+    images: ["/og-image.png"],
+  },
+  icons: {
+    icon: "/public/RighteousTA.png",
+  },
+};
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [loading, setLoading] = useState<boolean>(true);
-
-  useEffect(() => {
-    setTimeout(() => setLoading(false), 1000);
-  }, []);
-
   return (
-    <html lang="en">
-      <body suppressHydrationWarning={true}>
-        <div className="dark:bg-boxdark-2 dark:text-bodydark">
-          {loading ? <Loader /> : children}
-        </div>
+    <html lang="en" suppressHydrationWarning>
+      <body suppressHydrationWarning>
+        <ClientWrapper>{children}</ClientWrapper>
       </body>
     </html>
   );

@@ -7,9 +7,31 @@ import { Metadata } from "next";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
 
 export const metadata: Metadata = {
-  title: "Next.js SignUp Page | TailAdmin - Next.js Dashboard Template",
-  description: "This is Next.js SignUp Page TailAdmin Dashboard Template",
-  // other metadata
+  title: "Sign Up | RighteousTA",
+  description:
+    "Sign up for a RighteousTA account to access personalized crypto technical analysis, charts, watchlists, and dashboard features.",
+  openGraph: {
+    title: "Sign Up to RighteousTA",
+    description:
+      "Sign up to unlock real-time crypto charts, TA indicators, market insights, and your personal trading dashboard.",
+    url: "https://www.righteousta.com/auth/signup",
+    images: [
+      {
+        url: "/images/meta/meta.jpeg",
+        width: 1200,
+        height: 630,
+        alt: "RighteousTA Sign Up Page – Crypto Technical Analysis Platform",
+      },
+    ],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Sign Up | RighteousTA",
+    description:
+      "Access your RighteousTA dashboard for advanced cryptocurrency technical analysis.",
+    images: ["/images/meta/meta.jpeg"],
+  },
 };
 
 const SignUp: React.FC = () => {

@@ -4,9 +4,31 @@ import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import CoinList100 from "@/components/data/list/CoinList100";
 
 export const metadata: Metadata = {
-  title: "Next.js Calender | TailAdmin - Next.js Dashboard Template",
+  title: "Market Cap | RighteousTA",
   description:
-    "This is Next.js Calender page for TailAdmin  Tailwind CSS Admin Dashboard Template",
+    "View the market capitalization of the top 100 cryptocurrencies on RighteousTA.",
+  openGraph: {
+    title: "Market Cap | RighteousTA",
+    description:
+      "View the market capitalization of the top 100 cryptocurrencies on RighteousTA.",
+    url: "https://www.righteousta.com/marketcap",
+    images: [
+      {
+        url: "/images/meta/meta.jpeg",
+        width: 1200,
+        height: 630,
+        alt: "RighteousTA Market Cap Page – Crypto Technical Analysis Platform",
+      },
+    ],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Market Cap | RighteousTA",
+    description:
+      "View the market capitalization of the top 100 cryptocurrencies on RighteousTA.",
+    images: ["/images/meta/meta.jpeg"],
+  },
 };
 
 const MarketCap = () => {

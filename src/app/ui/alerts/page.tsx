@@ -3,10 +3,31 @@ import { Metadata } from "next";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
 
 export const metadata: Metadata = {
-  title: "Next.js Alerts | TailAdmin - Next.js Dashboard Template",
+  title: "Alerts | RighteousTA",
   description:
-    "This is Next.js Alerts page for TailAdmin - Next.js Tailwind CSS Admin Dashboard Template",
-  // other metadata
+    "Manage your RighteousTA alerts, including notifications for price changes, market trends, and important updates.",
+  openGraph: {
+    title: "Alerts | RighteousTA",
+    description:
+      "Stay informed with real-time alerts for cryptocurrency price changes, market trends, and important updates.",
+    url: "https://www.righteousta.com/alerts",
+    images: [
+      {
+        url: "/images/meta/meta.jpeg",
+        width: 1200,
+        height: 630,
+        alt: "RighteousTA Alerts Page – Crypto Technical Analysis Platform",
+      },
+    ],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Alerts | RighteousTA",
+    description:
+      "Manage your RighteousTA alerts, including notifications for price changes, market trends, and important updates.",
+    images: ["/images/meta/meta.jpeg"],
+  },
 };
 
 const Alerts = () => {

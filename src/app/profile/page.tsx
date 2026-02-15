@@ -5,9 +5,31 @@ import DefaultLayout from "@/components/Layouts/DefaultLayout";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Next.js Profile | TailAdmin - Next.js Dashboard Template",
+  title: "Profile | RighteousTA",
   description:
-    "This is Next.js Profile page for TailAdmin - Next.js Tailwind CSS Admin Dashboard Template",
+    "Access your RighteousTA dashboard for advanced cryptocurrency technical analysis, charts, watchlists, and personalized insights.",
+  openGraph: {
+    title: "Profile | RighteousTA",
+    description:
+      "Access your RighteousTA dashboard for advanced cryptocurrency technical analysis.",
+    url: "https://www.righteousta.com/profile",
+    images: [
+      {
+        url: "/images/meta/meta.jpeg",
+        width: 1200,
+        height: 630,
+        alt: "RighteousTA Profile Page – Crypto Technical Analysis Platform",
+      },
+    ],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Profile | RighteousTA",
+    description:
+      "Access your RighteousTA dashboard for advanced cryptocurrency technical analysis.",
+    images: ["/images/meta/meta.jpeg"],
+  },
 };
 
 const Profile = () => {

@@ -4,9 +4,31 @@ import { Metadata } from "next";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
 
 export const metadata: Metadata = {
-  title: "Next.js Buttons | TailAdmin - Next.js Dashboard Template",
+  title: "Buttons | RighteousTA",
   description:
-    "This is Next.js Buttons page for TailAdmin - Next.js Tailwind CSS Admin Dashboard Template",
+    "Explore various button styles and functionalities available in RighteousTA.",
+  openGraph: {
+    title: "Buttons | RighteousTA",
+    description:
+      "Explore various button styles and functionalities available in RighteousTA.",
+    url: "https://www.righteousta.com/ui/buttons",
+    images: [
+      {
+        url: "/images/meta/meta.jpeg",
+        width: 1200,
+        height: 630,
+        alt: "RighteousTA Buttons Page – Crypto Technical Analysis Platform",
+      },
+    ],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Buttons | RighteousTA",
+    description:
+      "Explore various button styles and functionalities available in RighteousTA.",
+    images: ["/images/meta/meta.jpeg"],
+  },
 };
 
 const Buttons = () => {

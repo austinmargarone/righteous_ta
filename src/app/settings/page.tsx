@@ -4,9 +4,31 @@ import { Metadata } from "next";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
 
 export const metadata: Metadata = {
-  title: "Next.js Settings | TailAdmin - Next.js Dashboard Template",
+  title: "Settings | RighteousTA",
   description:
-    "This is Next.js Settings page for TailAdmin - Next.js Tailwind CSS Admin Dashboard Template",
+    "Manage your RighteousTA account settings, including personal information, security preferences, and notification settings.",
+  openGraph: {
+    title: "Settings | RighteousTA",
+    description:
+      "Manage your RighteousTA account settings, including personal information, security preferences, and notification settings.",
+    url: "https://www.righteousta.com/settings",
+    images: [
+      {
+        url: "/images/meta/meta.jpeg",
+        width: 1200,
+        height: 630,
+        alt: "RighteousTA Settings Page – Crypto Technical Analysis Platform",
+      },
+    ],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Settings | RighteousTA",
+    description:
+      "Manage your RighteousTA account settings, including personal information, security preferences, and notification settings.",
+    images: ["/images/meta/meta.jpeg"],
+  },
 };
 
 const Settings = () => {
