@@ -3,8 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { useAccount, useDisconnect, useEnsName, useBalance } from "wagmi";
-import Image from "next/image";
 import { formatUnits } from "viem";
+import Jazzicon, { jsNumberForAddress } from "react-jazzicon";
 
 const DropdownUser = () => {
   const { address, isConnected } = useAccount();
@@ -17,7 +17,7 @@ const DropdownUser = () => {
   const trigger = useRef<any>(null);
   const dropdown = useRef<any>(null);
 
-  // Close on click outside (your existing logic)
+  // Close on click outside
   useEffect(() => {
     const clickHandler = ({ target }: MouseEvent) => {
       if (!dropdown.current) return;
@@ -43,42 +43,39 @@ const DropdownUser = () => {
     return () => document.removeEventListener("keydown", keyHandler);
   });
 
-  // Shorten address helper
+  // Helpers
   const shortenAddress = (addr: string) =>
     `${addr.slice(0, 6)}...${addr.slice(-4)}`;
+  const formattedBalance = balance
+    ? `${Number(formatUnits(balance.value, balance.decimals)).toFixed(4)} ${balance.symbol}`
+    : "0.00 ETH";
 
   return (
     <div className="relative">
       {isConnected ? (
-        // Connected: Clickable profile to open dropdown
         <button
           ref={trigger}
           onClick={() => setDropdownOpen(!dropdownOpen)}
-          className="flex items-center gap-4"
+          className="flex items-center gap-3 transition-opacity hover:opacity-90 md:gap-4"
         >
-          <span className="hidden text-right lg:block">
-            <span className="block text-sm font-medium text-black dark:text-white">
+          {/* Jazzicon avatar – unique per wallet */}
+          <div className="relative h-10 w-10 overflow-hidden rounded-full border-2 border-primary/30 shadow-sm md:h-12 md:w-12">
+            <Jazzicon diameter={48} seed={jsNumberForAddress(address!)} />
+          </div>
+
+          {/* Wallet info – more room & bolder */}
+          <div className="hidden text-right md:block">
+            <div className="text-lg font-semibold leading-tight text-black dark:text-white">
               {ensName || shortenAddress(address!)}
-            </span>
-            <span className="block text-xs">
-              {balance
-                ? `${Number(formatUnits(balance.value, balance.decimals)).toFixed(4)} ${balance.symbol}`
-                : "Loading..."}
-            </span>
-          </span>
+            </div>
+            <div className="text-gray-600 dark:text-gray-400 mt-0.5 text-sm font-medium">
+              {formattedBalance}
+            </div>
+          </div>
 
-          <span className="h-12 w-12 overflow-hidden rounded-full">
-            <Image
-              width={112}
-              height={112}
-              src="/images/user/wallet-placeholder.png" // replace with real placeholder or generate from address
-              alt="Connected Wallet"
-              style={{ width: "auto", height: "auto" }}
-            />
-          </span>
-
+          {/* Arrow */}
           <svg
-            className="hidden fill-current sm:block"
+            className="hidden fill-current md:block"
             width="12"
             height="8"
             viewBox="0 0 12 8"
@@ -94,12 +91,11 @@ const DropdownUser = () => {
           </svg>
         </button>
       ) : (
-        // Not connected: RainbowKit's connect button
         <ConnectButton.Custom>
           {({ openConnectModal }) => (
             <button
               onClick={openConnectModal}
-              className="rounded-lg bg-primary px-5 py-2.5 text-sm font-medium text-white hover:bg-opacity-90"
+              className="rounded-xl bg-primary px-6 py-3 text-sm font-medium text-white shadow-md transition-all duration-200 hover:bg-opacity-90"
             >
               Connect Wallet
             </button>
@@ -107,57 +103,61 @@ const DropdownUser = () => {
         </ConnectButton.Custom>
       )}
 
-      {/* Dropdown – only visible when connected */}
+      {/* Dropdown – fixed dark mode with your theme colors */}
       {isConnected && (
         <div
           ref={dropdown}
-          className={`absolute right-0 mt-4 flex w-62.5 flex-col rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark ${
+          className={`dark:shadow-dark absolute right-0 mt-4 w-72 overflow-hidden rounded-lg border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark ${
             dropdownOpen ? "block" : "hidden"
           }`}
         >
-          <ul className="flex flex-col gap-5 border-b border-stroke px-6 py-7.5 dark:border-strokedark">
+          {/* Wallet info header */}
+          <div className="border-b border-stroke bg-gray px-6 py-5 dark:border-strokedark dark:bg-meta-4">
+            <div className="text-lg font-semibold text-black dark:text-white">
+              {ensName || shortenAddress(address!)}
+            </div>
+            <div className="mt-1 text-sm font-medium text-body dark:text-bodydark">
+              {formattedBalance}
+            </div>
+          </div>
+
+          {/* Menu items */}
+          <ul className="flex flex-col">
             <li>
               <a
                 href={`https://etherscan.io/address/${address}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
+                className="flex items-center gap-3.5 px-6 py-4 text-sm font-medium text-body transition-colors hover:bg-gray dark:text-bodydark dark:hover:bg-meta-4"
               >
-                <svg
-                  className="fill-current"
-                  width="22"
-                  height="22"
-                  viewBox="0 0 22 22"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  {/* your existing Etherscan icon or any link icon */}
-                </svg>
                 View on Etherscan
               </a>
             </li>
-            {/* Add more items: Portfolio, Settings, etc. */}
+            <li>
+              <button
+                onClick={() => {
+                  navigator.clipboard.writeText(address!);
+                  alert("Address copied to clipboard!");
+                }}
+                className="flex w-full items-center gap-3.5 px-6 py-4 text-sm font-medium text-body transition-colors hover:bg-gray dark:text-bodydark dark:hover:bg-meta-4"
+              >
+                Copy Address
+              </button>
+            </li>
           </ul>
 
-          <button
-            onClick={() => {
-              disconnect();
-              setDropdownOpen(false);
-            }}
-            className="text-red-600 hover:text-red-700 flex items-center gap-3.5 px-6 py-4 text-sm font-medium duration-300 ease-in-out lg:text-base"
-          >
-            <svg
-              className="fill-current"
-              width="22"
-              height="22"
-              viewBox="0 0 22 22"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
+          {/* Disconnect */}
+          <div className="border-t border-stroke dark:border-strokedark">
+            <button
+              onClick={() => {
+                disconnect();
+                setDropdownOpen(false);
+              }}
+              className="hover:bg-red-50 flex w-full items-center gap-3.5 px-6 py-4 text-sm font-medium text-meta-1 transition-colors dark:text-meta-7 dark:hover:bg-meta-1/10"
             >
-              {/* your existing logout icon */}
-            </svg>
-            Disconnect Wallet
-          </button>
+              Disconnect Wallet
+            </button>
+          </div>
         </div>
       )}
     </div>
