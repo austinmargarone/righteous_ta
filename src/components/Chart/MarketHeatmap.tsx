@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
 interface HeatmapProps {
   onSymbolClick: (symbol: string) => void;
@@ -126,10 +127,13 @@ export default function MarketHeatmap({ onSymbolClick }: HeatmapProps) {
                 }}
                 title={`${crypto.name} - Market Cap: $${(crypto.marketCap / 1e9).toFixed(2)}B`}
               >
-                <img
+                <Image
                   src={crypto.image}
                   alt={crypto.name}
+                  width={10}
+                  height={10} // e.g. 200 or 300
                   className="mb-2 h-10 w-10 rounded-full"
+                  unoptimized
                 />
                 <div className="text-sm font-bold">
                   {crypto.symbol.toUpperCase()}

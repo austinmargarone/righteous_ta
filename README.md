@@ -1,77 +1,56 @@
-# RighteousTA
+# RighteousTA – Crypto Technical Analysis Platform
 
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Next.js](https://img.shields.io/badge/Next.js-15-black?logo=next.js)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?logo=typescript)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3-38bdf8?logo=tailwind-css)](https://tailwindcss.com/)
 
-![Preview Image](devpreview.jpg)
+**Live Demo:** [https://www.righteousta.com/](https://www.righteousta.com/)
 
-## This application is still being built | Please stay tuned
+![RighteousTA Preview](public/screenshots/dashboard-preview0.png)
+![RighteousTA Preview](public/screenshots/dashboard-preview2.png)
+![RighteousTA Preview](public/screenshots/dashboard-preview3.png)
 
-## Demo
-
-Check out the live website [here](https://www.righteousta.com/).
-
-## Description
-
-This project is a technical analysis platform where you can get crypto currency prices, charts and education.
-
-## Usage
-
-Stay up to date with the markets and learn technical analysis.
+RighteousTA is a modern cryptocurrency technical analysis platform built to help traders and analysts track markets, visualize data, and learn TA concepts in real time.
 
 ## Features
 
-- **Dashboard**: See everything all in one dashboard page.
-- **Charts**: Explore the markets with our TradingView integration.
-- **Market Caps**: Stay updated with the top 100 cryptocurrencies.
-- **News**: Stay up to date with the latest cryptocurrency news.
-- **Education**: Learn how to read charts and trade like a pro.
+- **Live Market Cap Rankings** – Top 100 cryptocurrencies with real-time USD/BTC prices, 24h changes, and market data (CoinGecko API)
+- **Trading Dashboard** – Order book, live price stats, market heatmap, and TradingView-powered charts
+- **Wallet Connection** – Connect Ethereum wallets via **Wagmi + RainbowKit + Viem** (MetaMask, WalletConnect, Rainbow, etc.)
+  - Displays ENS name (if available), shortened address, and ETH balance
+  - Custom dropdown with Etherscan link, copy address, and disconnect
+- **Dark/Light Mode** – Full theme support with persistent preference
+- **Responsive Design** – Clean UI on desktop, tablet, and mobile (Tailwind CSS)
+- **News & Education** – Crypto news feed and upcoming TA learning resources
 
 ## Tech Stack
 
-- **Frontend**:
-  - **Framework**: Next.js
-  - **Language**: TypeScript
-  - **State Management**: React Hooks
-  - **Styling**: Tailwind CSS
-- **Backend**:
-  - **Server**: Node.js
-  - **Database**: PostgreSQL (via Prisma)
-  - **API**: RESTful API endpoints (handled with Next.js API routes)
+- **Frontend**: Next.js 15 (App Router), React 18, TypeScript
+- **Styling**: Tailwind CSS (custom theme with dark mode)
+- **State & Data Fetching**: React hooks, TanStack Query (for API caching)
+- **Web3**: Wagmi, Viem, RainbowKit (wallet connection & blockchain interaction)
+- **Charts**: TradingView Lightweight Charts, Lightweight Charts
+- **Icons/Visuals**: Jazzicon (dynamic wallet avatars), Lucide icons
+- **API**: CoinGecko (real-time prices, market data, historical charts)
 
-## Getting Started
-
-To run this project locally, follow these steps:
-
-1. **Clone the repository**:
-
-   ```bash
-   git clone  git@github.com:austinmargarone/righteous_ta.git
-   cd righteous_ta
-   ```
-
-2. **Install & Launch**:
+## Quick Start (Local Development)
 
 ```bash
+# Clone the repo
+git clone https://github.com/austinmargarone/righteous_ta.git
+cd righteous_ta
+
+# Install dependencies
 npm install
+
+# Copy .env.example to .env.local and fill in your WalletConnect Project ID
+cp .env.example .env.local
+
+# Start development server
 npm run dev
-```
-
-## Contributing
-
-We welcome contributions from the community! To contribute to the project, follow these steps:
-
-1. Fork this repository.
-2. Create a new branch (`git checkout -b feature/your-feature-name`).
-3. Make your changes and commit them (`git commit -am 'Add new feature'`).
-4. Push to the branch (`git push origin feature/your-feature-name`).
-5. Create a new Pull Request.
-
-Please review our [Contributing Guidelines](CONTRIBUTING.md) for more details.
-
-## License
-
-This project is licensed under the [MIT License](LICENSE).
 
 ## Contact
 
 For questions or support, please contact Austin Margarone at austin@margarone.dev.
+```

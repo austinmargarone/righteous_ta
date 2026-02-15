@@ -35,10 +35,7 @@ export default function OrderBook({ symbol = "BTCUSDT" }: OrderBookProps) {
   // Fetch order book data
   useEffect(() => {
     // Process order book data inside useEffect
-    const processOrderBook = (
-      orders: [string, string][],
-      isBid: boolean,
-    ): OrderBookEntry[] => {
+    const processOrderBook = (orders: [string, string][]): OrderBookEntry[] => {
       let total = 0;
       return orders.slice(0, depthLimit).map(([price, qty]) => {
         const p = parseFloat(price);
@@ -76,8 +73,8 @@ export default function OrderBook({ symbol = "BTCUSDT" }: OrderBookProps) {
           throw new Error("Invalid order book data format");
         }
 
-        const processedBids = processOrderBook(data.bids, true);
-        const processedAsks = processOrderBook(data.asks, false);
+        const processedBids = processOrderBook(data.bids);
+        const processedAsks = processOrderBook(data.asks);
 
         setBids(processedBids);
         setAsks(processedAsks);

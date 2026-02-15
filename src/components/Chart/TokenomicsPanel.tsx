@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useState } from "react";
 
 interface TokenomicsPanelProps {
@@ -143,10 +144,12 @@ export default function TokenomicsPanel({ symbol }: TokenomicsPanelProps) {
       {/* Header */}
       <div className="border-b border-stroke px-6 py-4 dark:border-strokedark">
         <div className="flex items-center gap-3">
-          <img
+          <Image
             src={data.image}
-            alt={data.name}
-            className="h-10 w-10 rounded-full"
+            alt={`${data.name} logo`}
+            width={32}
+            height={32}
+            className="rounded-full"
           />
           <div>
             <h3 className="text-xl font-bold text-black dark:text-white">

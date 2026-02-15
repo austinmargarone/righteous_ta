@@ -1,4 +1,3 @@
-// app/api/heatmap/route.ts
 import { NextResponse } from "next/server";
 
 export async function GET() {
@@ -24,7 +23,7 @@ export async function GET() {
       `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=${coinIds.join(",")}&order=market_cap_desc&sparkline=false&price_change_percentage=24h`,
       {
         headers: {
-          "Content-Type": "application/json",
+          "x-cg-demo-api-key": process.env.COINGECKO_DEMO_KEY || "",
         },
       },
     );
