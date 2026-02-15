@@ -1,30 +1,31 @@
+// src/app/api/news/route.ts
 import { NextResponse } from "next/server";
 import axios from "axios";
 
 export async function GET() {
-  const apiKey = process.env.NEXT_PUBLIC_RAPIDAPI_KEY_NEWS;
-  const url = "https://cryptocurrency-news2.p.rapidapi.com/v1/theguardian";
-
-  if (!apiKey) {
-    return NextResponse.json(
-      { error: "API key is not configured" },
-      { status: 500 },
-    );
-  }
+  const apiKey = process.env.CRYPTOCOMPARE_API_KEY; // Get free key at cryptocompare.com
+  const url = "https://min-api.cryptocompare.com/data/v2/news/?lang=EN";
 
   try {
     const response = await axios.get(url, {
       headers: {
-        "X-RapidAPI-Key": apiKey,
-        "X-RapidAPI-Host": "cryptocurrency-news2.p.rapidapi.com",
+        authorization: `Apikey ${apiKey}`,
       },
     });
 
-    console.log("API Response:", JSON.stringify(response.data, null, 2));
+    // CryptoCompare returns fresh news multiple times per day
+    const newsData = response.data.Data.map((article: any) => ({
+      title: article.title,
+      description: article.body,
+      url: article.url,
+      createdAt: new Date(article.published_on * 1000).toISOString(), // Convert Unix timestamp
+      source: article.source,
+      imageUrl: article.imageurl,
+    }));
 
-    return NextResponse.json({ data: response.data });
+    return NextResponse.json({ data: { data: newsData } });
   } catch (error) {
-    console.error("Error fetching data from RapidAPI:", error);
+    console.error("Error fetching from CryptoCompare:", error);
     return NextResponse.json({ error: "Error fetching data" }, { status: 500 });
   }
 }

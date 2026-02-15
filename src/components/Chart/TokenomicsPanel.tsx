@@ -140,7 +140,7 @@ export default function TokenomicsPanel({ symbol }: TokenomicsPanelProps) {
   }
 
   return (
-    <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+    <div className="h-full rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
       {/* Header */}
       <div className="border-b border-stroke px-6 py-4 dark:border-strokedark">
         <div className="flex items-center gap-3">

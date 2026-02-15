@@ -62,17 +62,7 @@ export default function MarketHeatmap({ onSymbolClick }: HeatmapProps) {
 
   const getTextColor = (change: number) => {
     if (Math.abs(change) > 5) return "text-white";
-    return "text-black dark:text-white";
-  };
-
-  const getSize = (marketCap: number, allMarketCaps: number[]) => {
-    const maxMC = Math.max(...allMarketCaps);
-    const minMC = Math.min(...allMarketCaps);
-    const normalized = (marketCap - minMC) / (maxMC - minMC);
-
-    const minSize = 130;
-    const maxSize = 200;
-    return minSize + normalized * (maxSize - minSize);
+    return "text-gray-900 dark:text-white";
   };
 
   const handleSymbolClick = (symbol: string) => {
@@ -81,9 +71,14 @@ export default function MarketHeatmap({ onSymbolClick }: HeatmapProps) {
 
   if (loading) {
     return (
-      <div className="rounded-sm border border-stroke bg-white p-6 shadow-default dark:border-strokedark dark:bg-boxdark">
-        <div className="text-center text-bodydark">
-          Loading market heatmap...
+      <div className="flex h-full flex-col rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+        <div className="border-b border-stroke px-4 py-3 dark:border-strokedark">
+          <h3 className="text-lg font-semibold text-black dark:text-white">
+            Market Heatmap
+          </h3>
+        </div>
+        <div className="flex flex-1 items-center justify-center p-4 text-bodydark">
+          <div className="animate-pulse">Loading...</div>
         </div>
       </div>
     );
@@ -91,29 +86,31 @@ export default function MarketHeatmap({ onSymbolClick }: HeatmapProps) {
 
   if (error) {
     return (
-      <div className="rounded-sm border border-stroke bg-white p-6 shadow-default dark:border-strokedark dark:bg-boxdark">
-        <div className="text-red-500 text-center">Error: {error}</div>
+      <div className="flex h-full flex-col rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+        <div className="border-b border-stroke px-4 py-3 dark:border-strokedark">
+          <h3 className="text-lg font-semibold text-black dark:text-white">
+            Market Heatmap
+          </h3>
+        </div>
+        <div className="text-red-500 flex flex-1 items-center justify-center p-4 text-center">
+          Error: {error}
+        </div>
       </div>
     );
   }
 
-  const allMarketCaps = cryptoData.map((c) => c.marketCap);
-
   return (
-    <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-      <div className="border-b border-stroke px-6 py-4 dark:border-strokedark">
-        <h3 className="text-xl font-semibold text-black dark:text-white">
+    <div className="flex h-full flex-col rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+      <div className="border-b border-stroke px-4 py-3 dark:border-strokedark">
+        <h3 className="text-lg font-semibold text-black dark:text-white">
           Market Heatmap
         </h3>
-        <p className="text-sm text-bodydark">
-          Tile height = market cap • Color = 24h change • Click to view chart
-        </p>
+        <p className="text-xs text-bodydark">24h price changes</p>
       </div>
 
-      <div className="p-4">
-        <div className="grid grid-cols-3 gap-3 md:grid-cols-4 lg:grid-cols-6">
+      <div className="flex-1 overflow-y-auto p-4">
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4">
           {cryptoData.map((crypto) => {
-            const size = getSize(crypto.marketCap, allMarketCaps);
             const color = getColor(crypto.priceChange24h);
             const textColor = getTextColor(crypto.priceChange24h);
 
@@ -121,59 +118,53 @@ export default function MarketHeatmap({ onSymbolClick }: HeatmapProps) {
               <button
                 key={crypto.id}
                 onClick={() => handleSymbolClick(crypto.symbol.toUpperCase())}
-                className={`${color} ${textColor} relative flex flex-col items-center justify-center rounded-lg p-4 transition-all hover:scale-105 hover:shadow-lg`}
-                style={{
-                  height: `${size}px`,
-                }}
+                className={`${color} ${textColor} flex flex-col items-center justify-center rounded-lg p-3 transition-all hover:scale-105 hover:shadow-lg`}
                 title={`${crypto.name} - Market Cap: $${(crypto.marketCap / 1e9).toFixed(2)}B`}
               >
                 <Image
                   src={crypto.image}
                   alt={crypto.name}
-                  width={10}
-                  height={10} // e.g. 200 or 300
-                  className="mb-2 h-10 w-10 rounded-full"
+                  width={32}
+                  height={32}
+                  className="mb-1.5 h-8 w-8 rounded-full"
                   unoptimized
                 />
-                <div className="text-sm font-bold">
+                <div className="text-xs font-bold">
                   {crypto.symbol.toUpperCase()}
                 </div>
-                <div className="text-xl font-bold">
+                <div className="text-base font-bold">
                   {crypto.priceChange24h > 0 ? "+" : ""}
                   {crypto.priceChange24h.toFixed(2)}%
                 </div>
-                <div className="text-xs font-semibold opacity-90">
+                <div className="text-xs opacity-90">
                   {crypto.price
                     ? crypto.price >= 1000
-                      ? `$${crypto.price.toLocaleString(undefined, { maximumFractionDigits: 0 })}`
+                      ? `$${(crypto.price / 1000).toFixed(1)}k`
                       : crypto.price >= 1
-                        ? `$${crypto.price.toLocaleString(undefined, { maximumFractionDigits: 2 })}`
-                        : `$${crypto.price.toLocaleString(undefined, { maximumFractionDigits: 4 })}`
+                        ? `$${crypto.price.toFixed(2)}`
+                        : `$${crypto.price.toFixed(4)}`
                     : "N/A"}
-                </div>
-                <div className="mt-1 text-xs opacity-75">
-                  ${(crypto.marketCap / 1e9).toFixed(1)}B
                 </div>
               </button>
             );
           })}
         </div>
 
-        <div className="mt-6 flex items-center justify-center gap-4 text-xs">
-          <div className="flex items-center gap-2">
-            <div className="h-4 w-4 rounded bg-green-600"></div>
+        <div className="mt-4 flex flex-wrap items-center justify-center gap-3 border-t border-stroke pt-3 text-xs dark:border-strokedark">
+          <div className="flex items-center gap-1.5">
+            <div className="h-3 w-3 rounded bg-green-600"></div>
             <span className="text-bodydark">&gt;10%</span>
           </div>
-          <div className="flex items-center gap-2">
-            <div className="h-4 w-4 rounded bg-green-400"></div>
+          <div className="flex items-center gap-1.5">
+            <div className="h-3 w-3 rounded bg-green-400"></div>
             <span className="text-bodydark">0-10%</span>
           </div>
-          <div className="flex items-center gap-2">
-            <div className="bg-red-400 h-4 w-4 rounded"></div>
+          <div className="flex items-center gap-1.5">
+            <div className="bg-red-400 h-3 w-3 rounded"></div>
             <span className="text-bodydark">0 to -10%</span>
           </div>
-          <div className="flex items-center gap-2">
-            <div className="bg-red-600 h-4 w-4 rounded"></div>
+          <div className="flex items-center gap-1.5">
+            <div className="bg-red-600 h-3 w-3 rounded"></div>
             <span className="text-bodydark">&lt;-10%</span>
           </div>
         </div>
