@@ -70,36 +70,27 @@ const CoinList: React.FC<CoinListProps> = ({ maxCoinsToShow }) => {
       try {
         setLoading(true);
 
-        const response = await axios.get(
-          "https://api.coingecko.com/api/v3/coins/markets",
-          {
-            params: {
-              vs_currency: "usd",
-              order: "market_cap_desc",
-              per_page: maxCoinsToShow,
-              page: 1,
-              sparkline: false,
-              price_change_percentage: "24h",
-              locale: "en",
-            },
-          },
-        );
+        const response = await axios.get(`/api/coins?max=${maxCoinsToShow}`);
 
-        const coins: Coin[] = response.data.map((coin: any, index: number) => ({
+        if (response.data.error) {
+          throw new Error(response.data.error);
+        }
+
+        const coins: Coin[] = response.data.coins.map((coin: any) => ({
           uuid: coin.id,
           name: coin.name,
-          symbol: coin.symbol.toUpperCase(),
-          price: coin.current_price?.toString() || "0",
-          btcPrice: "N/A",
-          iconUrl: coin.image,
-          marketCap: coin.market_cap?.toString() || "0",
-          change: coin.price_change_percentage_24h || 0,
-          rank: coin.market_cap_rank?.toString() || (index + 1).toString(),
+          symbol: coin.symbol,
+          price: coin.price,
+          btcPrice: coin.btcPrice,
+          iconUrl: coin.iconUrl,
+          marketCap: coin.marketCap,
+          change: coin.change,
+          rank: coin.rank,
         }));
 
         setCoinList(coins);
-      } catch (err) {
-        console.error("Error fetching coin data:", err);
+      } catch (err: any) {
+        console.error("Error fetching coins from API route:", err);
         setError("Failed to load cryptocurrency data. Please try again later.");
       } finally {
         setLoading(false);
@@ -107,6 +98,10 @@ const CoinList: React.FC<CoinListProps> = ({ maxCoinsToShow }) => {
     };
 
     fetchData();
+
+    // Optional: refresh every 90 seconds (adjust as needed)
+    // const interval = setInterval(fetchData, 90000);
+    // return () => clearInterval(interval);
   }, [maxCoinsToShow]);
 
   if (loading) {
@@ -132,54 +127,54 @@ const CoinList: React.FC<CoinListProps> = ({ maxCoinsToShow }) => {
     <div className="overflow-x-auto">
       {/* Desktop / Tablet View */}
       <div className="hidden sm:block">
-        <table className="divide-gray-200 dark:divide-gray-700 min-w-full divide-y">
+        <table className="divide-gray-200 dark:divide-gray-700 min-w-full table-fixed divide-y">
           <thead className="bg-gray-50 dark:bg-gray-800">
             <tr>
               <th
                 scope="col"
-                className="text-gray-500 dark:text-gray-300 px-6 py-3 text-left text-xs font-medium uppercase tracking-wider"
+                className="text-gray-500 dark:text-gray-300 w-16 px-4 py-3 text-left text-xs font-medium uppercase tracking-wider"
               >
                 Rank
               </th>
               <th
                 scope="col"
-                className="text-gray-500 dark:text-gray-300 px-6 py-3 text-left text-xs font-medium uppercase tracking-wider"
+                className="text-gray-500 dark:text-gray-300 w-16 px-4 py-3 text-left text-xs font-medium uppercase tracking-wider"
               >
                 Icon
               </th>
               <th
                 scope="col"
-                className="text-gray-500 dark:text-gray-300 px-6 py-3 text-left text-xs font-medium uppercase tracking-wider"
+                className="text-gray-500 dark:text-gray-300 w-40 px-4 py-3 text-left text-xs font-medium uppercase tracking-wider"
               >
                 Name
               </th>
               <th
                 scope="col"
-                className="text-gray-500 dark:text-gray-300 px-6 py-3 text-left text-xs font-medium uppercase tracking-wider"
+                className="text-gray-500 dark:text-gray-300 w-24 px-4 py-3 text-left text-xs font-medium uppercase tracking-wider"
               >
                 Symbol
               </th>
               <th
                 scope="col"
-                className="text-gray-500 dark:text-gray-300 px-6 py-3 text-left text-xs font-medium uppercase tracking-wider"
+                className="text-gray-500 dark:text-gray-300 w-32 px-4 py-3 text-left text-xs font-medium uppercase tracking-wider"
               >
                 Price
               </th>
               <th
                 scope="col"
-                className="text-gray-500 dark:text-gray-300 px-6 py-3 text-left text-xs font-medium uppercase tracking-wider"
+                className="text-gray-500 dark:text-gray-300 w-32 px-4 py-3 text-left text-xs font-medium uppercase tracking-wider"
               >
                 BTC Price
               </th>
               <th
                 scope="col"
-                className="text-gray-500 dark:text-gray-300 px-6 py-3 text-left text-xs font-medium uppercase tracking-wider"
+                className="text-gray-500 dark:text-gray-300 w-40 px-4 py-3 text-left text-xs font-medium uppercase tracking-wider"
               >
                 Market Cap
               </th>
               <th
                 scope="col"
-                className="text-gray-500 dark:text-gray-300 px-6 py-3 text-left text-xs font-medium uppercase tracking-wider"
+                className="text-gray-500 dark:text-gray-300 w-28 px-4 py-3 text-left text-xs font-medium uppercase tracking-wider"
               >
                 24h Change
               </th>
@@ -191,10 +186,10 @@ const CoinList: React.FC<CoinListProps> = ({ maxCoinsToShow }) => {
                 key={coin.uuid}
                 className="hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
               >
-                <td className="text-gray-900 whitespace-nowrap px-6 py-4 font-medium dark:text-white">
+                <td className="text-gray-900 whitespace-nowrap px-4 py-4 font-medium dark:text-white">
                   {coin.rank}
                 </td>
-                <td className="whitespace-nowrap px-6 py-4">
+                <td className="whitespace-nowrap px-4 py-4">
                   <Image
                     src={coin.iconUrl}
                     alt={coin.name}
@@ -203,29 +198,30 @@ const CoinList: React.FC<CoinListProps> = ({ maxCoinsToShow }) => {
                     className="rounded-full object-contain"
                   />
                 </td>
-                <td className="text-gray-900 dark:text-gray-200 whitespace-nowrap px-6 py-4 text-sm">
+                <td
+                  className="text-gray-900 dark:text-gray-200 max-w-0 truncate px-4 py-4 text-sm"
+                  title={coin.name}
+                >
                   {coin.name}
                 </td>
-                <td className="text-gray-500 dark:text-gray-400 whitespace-nowrap px-6 py-4 text-sm">
+                <td className="text-gray-500 dark:text-gray-400 whitespace-nowrap px-4 py-4 text-sm">
                   {coin.symbol}
                 </td>
-                <td className="whitespace-nowrap px-6 py-4">
-                  <span className="inline-flex rounded-full bg-green-100 px-3 py-1 text-xs font-semibold text-green-800 dark:bg-green-900 dark:text-green-200">
-                    ${formatUsdPrice(coin.price)}
-                  </span>
+                <td className="text-gray-900 dark:text-gray-200 whitespace-nowrap px-4 py-4 text-sm font-medium">
+                  ${formatUsdPrice(coin.price)}
                 </td>
-                <td className="whitespace-nowrap px-6 py-4 text-[#f7931a] dark:text-yellow-400">
+                <td className="whitespace-nowrap px-4 py-4 text-sm font-medium text-[#f7931a] dark:text-yellow-400">
                   ₿{formatBtcPrice(coin.btcPrice)}
                 </td>
-                <td className="text-gray-900 dark:text-gray-200 whitespace-nowrap px-6 py-4">
+                <td className="text-gray-900 dark:text-gray-200 whitespace-nowrap px-4 py-4 text-sm font-medium">
                   ${formatNumberWithCommas(Math.round(Number(coin.marketCap)))}
                 </td>
-                <td className="whitespace-nowrap px-6 py-4">
+                <td className="whitespace-nowrap px-4 py-4">
                   <span
                     className={`inline-flex rounded-full px-3 py-1 text-xs font-semibold leading-5 ${
                       coin.change >= 0
-                        ? "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200"
-                        : "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200"
+                        ? "bg-green-100 text-green-800 dark:bg-green-800 dark:text-green-100"
+                        : "bg-red-100 text-red-900 dark:bg-red-900 dark:text-red-50 font-medium"
                     }`}
                   >
                     {coin.change >= 0 ? "+" : ""}
@@ -256,24 +252,27 @@ const CoinList: React.FC<CoinListProps> = ({ maxCoinsToShow }) => {
               className="rounded-full"
             />
             <div className="font-semibold">{coin.symbol}</div>
-            <div className="text-gray-600 dark:text-gray-400 text-sm">
+            <div
+              className="text-gray-600 dark:text-gray-400 max-w-[80vw] truncate text-sm"
+              title={coin.name}
+            >
               {coin.name}
             </div>
-            <div className="text-lg font-medium">
+            <div className="text-gray-900 dark:text-gray-200 text-lg font-medium">
               ${formatUsdPrice(coin.price)}
             </div>
             <div className="text-[#f7931a] dark:text-yellow-400">
               ₿{formatBtcPrice(coin.btcPrice)}
             </div>
-            <div className="text-gray-800 dark:text-gray-200">
+            <div className="text-gray-800 dark:text-gray-200 font-medium">
               ${formatNumberWithCommas(Math.round(Number(coin.marketCap)))}
             </div>
             <div>
               <span
                 className={`inline-flex rounded-full px-4 py-1 text-sm font-semibold ${
                   coin.change >= 0
-                    ? "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200"
-                    : "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200"
+                    ? "bg-green-100 text-green-800 dark:bg-green-800 dark:text-green-100"
+                    : "bg-red-100 text-red-800 dark:bg-red-800 dark:text-red-100"
                 }`}
               >
                 {coin.change >= 0 ? "+" : ""}
