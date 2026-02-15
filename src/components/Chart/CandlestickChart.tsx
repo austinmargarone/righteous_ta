@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from "react";
 import {
   createChart,
   IChartApi,
-  ISeriesApi,
   Time,
   CandlestickData,
   HistogramData,
@@ -446,8 +445,8 @@ export default function CandlestickChart({
 
         // Calculate indicators
         const closes = data.map((k: any) => parseFloat(k[4]));
-        const highs = data.map((k: any) => parseFloat(k[2]));
-        const lows = data.map((k: any) => parseFloat(k[3]));
+        // const highs = data.map((k: any) => parseFloat(k[2]));
+        // const lows = data.map((k: any) => parseFloat(k[3]));
         const times = data.map((k: any) => Math.floor(k[0] / 1000) as Time);
 
         // SMA
