@@ -1,8 +1,8 @@
-// app/layout.tsx     ← NO "use client" here
 import type { Metadata } from "next";
 import "@/css/satoshi.css";
 import "@/css/style.css";
 import ClientWrapper from "@/components/ClientWrapper";
+import { Providers } from "@/components/Providers/Providers";
 
 export const metadata: Metadata = {
   title: {
@@ -45,7 +45,9 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body suppressHydrationWarning>
-        <ClientWrapper>{children}</ClientWrapper>
+        <Providers>
+          <ClientWrapper>{children}</ClientWrapper>
+        </Providers>
       </body>
     </html>
   );
